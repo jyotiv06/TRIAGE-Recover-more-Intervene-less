@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  payments      Payment[]
+  recoveryCases RecoveryCase[]
+  opportunities Opportunity[]
+}
+
+model Payment {
+  id            String         @id @default(uuid())
+  amount        Float
+  currency      String         @default("INR")
+  status        String         // e.g., "FAILED", "SUCCESS", "PENDING"
+  customerId    String
+  customer      Customer       @relation(fields: [customerId], references: [id])
+  createdAt     DateTime       @default(now())
+  events        PaymentEvent[]
+  recoveryCases RecoveryCase[]
+  opportunity   Opportunity?
+}
+
+model PaymentEvent {
+  id        String   @id @default(uuid())
+  eventId   String   @unique
+  paymentId String
+  payment   Payment  @relation(fields: [paymentId], references: [id])
+  eventType String
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+model RecoveryCase {
+  id        String           @id @default(uuid())
+  status    String           // e.g., "OPEN", "IN_PROGRESS", "RECOVERED", "FAILED"
+  amount    Float
+  customerId String
+  customer  Customer         @relation(fields: [customerId], references: [id])
+  paymentId String
+  payment   Payment          @relation(fields: [paymentId], references: [id])
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  actions   RecoveryAction[]
+}
+
+model RecoveryAction {
+  id             String       @id @default(uuid())
+  recoveryCaseId String
+  recoveryCase   RecoveryCase @relation(fields: [recoveryCaseId], references: [id])
+  actionType     String       // e.g., "EMAIL_SENT", "WHATSAPP_SENT", "DISCOUNT_OFFERED"
+  status         String       // e.g., "PENDING", "SENT", "FAILED"
+  createdAt      DateTime     @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  details   Json?
+  createdAt DateTime @default(now())
+}
+
+model Policy {
+  id          String   @id @default(uuid())
+  name        String
+  rules       Json
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Opportunity {
+  id                          String   @id @default(uuid())
+  paymentId                   String   @unique
+  payment                     Payment  @relation(fields: [paymentId], references: [id])
+  customerId                  String
+  customer                    Customer @relation(fields: [customerId], references: [id])
+
+  amount                      Float
+  currency                    String   @default("INR")
+
+  customerSegment              String  // NEW | RETURNING | VIP
+  previousSuccessCount        Int
+  previousFailureCount        Int
+  daysSinceLastSuccess        Int?
+  attemptCount                Int
+  failureReason                String // INSUFFICIENT_FUNDS | BANK_DECLINE | EXPIRED_CARD | NETWORK_ERROR | OTHER
+  opportunityStatus            String // FAILED | ABANDONED | ALREADY_RECOVERED | LATE_AUTH
+  hoursSinceFailure           Float
+  checkoutAbandoned           Boolean
+  lateAuthorization           Boolean
+  alreadyRecovered            Boolean
+
+  // ground truth, evaluation-only — never fed to the AI as an input
+  naturalRecoveryProbability  Float
+  recoveredNaturally          Boolean
+
+  // filled in later by Piece 4 (AI) and Piece 5 (optimizer)
+  aiEstimatedLift              Float?
+  aiRecommendedAction          String?
+  selectedForIntervention      Boolean @default(false)
+
+  createdAt                    DateTime @default(now())
+}
