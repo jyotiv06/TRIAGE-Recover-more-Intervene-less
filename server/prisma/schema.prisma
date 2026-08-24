@@ -111,5 +111,11 @@ model Opportunity {
   aiRecommendedAction          String?
   selectedForIntervention      Boolean @default(false)
 
+  diagnosis                              String?
+  diagnosisConfidence                    Float?
+  aiNaturalRecoveryProbability           Float?
+  aiRecoveryWithInterventionProbability  Float?
+  diagnosedAt                            DateTime?
+
   createdAt                    DateTime @default(now())
 }

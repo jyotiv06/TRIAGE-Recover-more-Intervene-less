@@ -9213,6 +9213,9 @@ export namespace Prisma {
     hoursSinceFailure: number | null
     naturalRecoveryProbability: number | null
     aiEstimatedLift: number | null
+    diagnosisConfidence: number | null
+    aiNaturalRecoveryProbability: number | null
+    aiRecoveryWithInterventionProbability: number | null
   }
 
   export type OpportunitySumAggregateOutputType = {
@@ -9224,6 +9227,9 @@ export namespace Prisma {
     hoursSinceFailure: number | null
     naturalRecoveryProbability: number | null
     aiEstimatedLift: number | null
+    diagnosisConfidence: number | null
+    aiNaturalRecoveryProbability: number | null
+    aiRecoveryWithInterventionProbability: number | null
   }
 
   export type OpportunityMinAggregateOutputType = {
@@ -9248,6 +9254,11 @@ export namespace Prisma {
     aiEstimatedLift: number | null
     aiRecommendedAction: string | null
     selectedForIntervention: boolean | null
+    diagnosis: string | null
+    diagnosisConfidence: number | null
+    aiNaturalRecoveryProbability: number | null
+    aiRecoveryWithInterventionProbability: number | null
+    diagnosedAt: Date | null
     createdAt: Date | null
   }
 
@@ -9273,6 +9284,11 @@ export namespace Prisma {
     aiEstimatedLift: number | null
     aiRecommendedAction: string | null
     selectedForIntervention: boolean | null
+    diagnosis: string | null
+    diagnosisConfidence: number | null
+    aiNaturalRecoveryProbability: number | null
+    aiRecoveryWithInterventionProbability: number | null
+    diagnosedAt: Date | null
     createdAt: Date | null
   }
 
@@ -9298,6 +9314,11 @@ export namespace Prisma {
     aiEstimatedLift: number
     aiRecommendedAction: number
     selectedForIntervention: number
+    diagnosis: number
+    diagnosisConfidence: number
+    aiNaturalRecoveryProbability: number
+    aiRecoveryWithInterventionProbability: number
+    diagnosedAt: number
     createdAt: number
     _all: number
   }
@@ -9312,6 +9333,9 @@ export namespace Prisma {
     hoursSinceFailure?: true
     naturalRecoveryProbability?: true
     aiEstimatedLift?: true
+    diagnosisConfidence?: true
+    aiNaturalRecoveryProbability?: true
+    aiRecoveryWithInterventionProbability?: true
   }
 
   export type OpportunitySumAggregateInputType = {
@@ -9323,6 +9347,9 @@ export namespace Prisma {
     hoursSinceFailure?: true
     naturalRecoveryProbability?: true
     aiEstimatedLift?: true
+    diagnosisConfidence?: true
+    aiNaturalRecoveryProbability?: true
+    aiRecoveryWithInterventionProbability?: true
   }
 
   export type OpportunityMinAggregateInputType = {
@@ -9347,6 +9374,11 @@ export namespace Prisma {
     aiEstimatedLift?: true
     aiRecommendedAction?: true
     selectedForIntervention?: true
+    diagnosis?: true
+    diagnosisConfidence?: true
+    aiNaturalRecoveryProbability?: true
+    aiRecoveryWithInterventionProbability?: true
+    diagnosedAt?: true
     createdAt?: true
   }
 
@@ -9372,6 +9404,11 @@ export namespace Prisma {
     aiEstimatedLift?: true
     aiRecommendedAction?: true
     selectedForIntervention?: true
+    diagnosis?: true
+    diagnosisConfidence?: true
+    aiNaturalRecoveryProbability?: true
+    aiRecoveryWithInterventionProbability?: true
+    diagnosedAt?: true
     createdAt?: true
   }
 
@@ -9397,6 +9434,11 @@ export namespace Prisma {
     aiEstimatedLift?: true
     aiRecommendedAction?: true
     selectedForIntervention?: true
+    diagnosis?: true
+    diagnosisConfidence?: true
+    aiNaturalRecoveryProbability?: true
+    aiRecoveryWithInterventionProbability?: true
+    diagnosedAt?: true
     createdAt?: true
     _all?: true
   }
@@ -9509,6 +9551,11 @@ export namespace Prisma {
     aiEstimatedLift: number | null
     aiRecommendedAction: string | null
     selectedForIntervention: boolean
+    diagnosis: string | null
+    diagnosisConfidence: number | null
+    aiNaturalRecoveryProbability: number | null
+    aiRecoveryWithInterventionProbability: number | null
+    diagnosedAt: Date | null
     createdAt: Date
     _count: OpportunityCountAggregateOutputType | null
     _avg: OpportunityAvgAggregateOutputType | null
@@ -9553,6 +9600,11 @@ export namespace Prisma {
     aiEstimatedLift?: boolean
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
+    diagnosis?: boolean
+    diagnosisConfidence?: boolean
+    aiNaturalRecoveryProbability?: boolean
+    aiRecoveryWithInterventionProbability?: boolean
+    diagnosedAt?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9580,6 +9632,11 @@ export namespace Prisma {
     aiEstimatedLift?: boolean
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
+    diagnosis?: boolean
+    diagnosisConfidence?: boolean
+    aiNaturalRecoveryProbability?: boolean
+    aiRecoveryWithInterventionProbability?: boolean
+    diagnosedAt?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9607,6 +9664,11 @@ export namespace Prisma {
     aiEstimatedLift?: boolean
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
+    diagnosis?: boolean
+    diagnosisConfidence?: boolean
+    aiNaturalRecoveryProbability?: boolean
+    aiRecoveryWithInterventionProbability?: boolean
+    diagnosedAt?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9634,10 +9696,15 @@ export namespace Prisma {
     aiEstimatedLift?: boolean
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
+    diagnosis?: boolean
+    diagnosisConfidence?: boolean
+    aiNaturalRecoveryProbability?: boolean
+    aiRecoveryWithInterventionProbability?: boolean
+    diagnosedAt?: boolean
     createdAt?: boolean
   }
 
-  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "createdAt", ExtArgs["result"]["opportunity"]>
+  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "createdAt", ExtArgs["result"]["opportunity"]>
   export type OpportunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9679,6 +9746,11 @@ export namespace Prisma {
       aiEstimatedLift: number | null
       aiRecommendedAction: string | null
       selectedForIntervention: boolean
+      diagnosis: string | null
+      diagnosisConfidence: number | null
+      aiNaturalRecoveryProbability: number | null
+      aiRecoveryWithInterventionProbability: number | null
+      diagnosedAt: Date | null
       createdAt: Date
     }, ExtArgs["result"]["opportunity"]>
     composites: {}
@@ -10126,6 +10198,11 @@ export namespace Prisma {
     readonly aiEstimatedLift: FieldRef<"Opportunity", 'Float'>
     readonly aiRecommendedAction: FieldRef<"Opportunity", 'String'>
     readonly selectedForIntervention: FieldRef<"Opportunity", 'Boolean'>
+    readonly diagnosis: FieldRef<"Opportunity", 'String'>
+    readonly diagnosisConfidence: FieldRef<"Opportunity", 'Float'>
+    readonly aiNaturalRecoveryProbability: FieldRef<"Opportunity", 'Float'>
+    readonly aiRecoveryWithInterventionProbability: FieldRef<"Opportunity", 'Float'>
+    readonly diagnosedAt: FieldRef<"Opportunity", 'DateTime'>
     readonly createdAt: FieldRef<"Opportunity", 'DateTime'>
   }
     
@@ -10658,6 +10735,11 @@ export namespace Prisma {
     aiEstimatedLift: 'aiEstimatedLift',
     aiRecommendedAction: 'aiRecommendedAction',
     selectedForIntervention: 'selectedForIntervention',
+    diagnosis: 'diagnosis',
+    diagnosisConfidence: 'diagnosisConfidence',
+    aiNaturalRecoveryProbability: 'aiNaturalRecoveryProbability',
+    aiRecoveryWithInterventionProbability: 'aiRecoveryWithInterventionProbability',
+    diagnosedAt: 'diagnosedAt',
     createdAt: 'createdAt'
   };
 
@@ -11246,6 +11328,11 @@ export namespace Prisma {
     aiEstimatedLift?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecommendedAction?: StringNullableFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolFilter<"Opportunity"> | boolean
+    diagnosis?: StringNullableFilter<"Opportunity"> | string | null
+    diagnosisConfidence?: FloatNullableFilter<"Opportunity"> | number | null
+    aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
+    aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
+    diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11273,6 +11360,11 @@ export namespace Prisma {
     aiEstimatedLift?: SortOrderInput | SortOrder
     aiRecommendedAction?: SortOrderInput | SortOrder
     selectedForIntervention?: SortOrder
+    diagnosis?: SortOrderInput | SortOrder
+    diagnosisConfidence?: SortOrderInput | SortOrder
+    aiNaturalRecoveryProbability?: SortOrderInput | SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrderInput | SortOrder
+    diagnosedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     payment?: PaymentOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
@@ -11303,6 +11395,11 @@ export namespace Prisma {
     aiEstimatedLift?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecommendedAction?: StringNullableFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolFilter<"Opportunity"> | boolean
+    diagnosis?: StringNullableFilter<"Opportunity"> | string | null
+    diagnosisConfidence?: FloatNullableFilter<"Opportunity"> | number | null
+    aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
+    aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
+    diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11330,6 +11427,11 @@ export namespace Prisma {
     aiEstimatedLift?: SortOrderInput | SortOrder
     aiRecommendedAction?: SortOrderInput | SortOrder
     selectedForIntervention?: SortOrder
+    diagnosis?: SortOrderInput | SortOrder
+    diagnosisConfidence?: SortOrderInput | SortOrder
+    aiNaturalRecoveryProbability?: SortOrderInput | SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrderInput | SortOrder
+    diagnosedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OpportunityCountOrderByAggregateInput
     _avg?: OpportunityAvgOrderByAggregateInput
@@ -11363,6 +11465,11 @@ export namespace Prisma {
     aiEstimatedLift?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
     aiRecommendedAction?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolWithAggregatesFilter<"Opportunity"> | boolean
+    diagnosis?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
+    diagnosisConfidence?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
+    aiNaturalRecoveryProbability?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
+    aiRecoveryWithInterventionProbability?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
+    diagnosedAt?: DateTimeNullableWithAggregatesFilter<"Opportunity"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
   }
 
@@ -11829,6 +11936,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
@@ -11856,6 +11968,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -11879,6 +11996,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
@@ -11906,6 +12028,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11931,6 +12058,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -11954,6 +12086,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11979,6 +12116,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12509,6 +12651,17 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type OpportunityCountOrderByAggregateInput = {
     id?: SortOrder
     paymentId?: SortOrder
@@ -12531,6 +12684,11 @@ export namespace Prisma {
     aiEstimatedLift?: SortOrder
     aiRecommendedAction?: SortOrder
     selectedForIntervention?: SortOrder
+    diagnosis?: SortOrder
+    diagnosisConfidence?: SortOrder
+    aiNaturalRecoveryProbability?: SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrder
+    diagnosedAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12543,6 +12701,9 @@ export namespace Prisma {
     hoursSinceFailure?: SortOrder
     naturalRecoveryProbability?: SortOrder
     aiEstimatedLift?: SortOrder
+    diagnosisConfidence?: SortOrder
+    aiNaturalRecoveryProbability?: SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrder
   }
 
   export type OpportunityMaxOrderByAggregateInput = {
@@ -12567,6 +12728,11 @@ export namespace Prisma {
     aiEstimatedLift?: SortOrder
     aiRecommendedAction?: SortOrder
     selectedForIntervention?: SortOrder
+    diagnosis?: SortOrder
+    diagnosisConfidence?: SortOrder
+    aiNaturalRecoveryProbability?: SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrder
+    diagnosedAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12592,6 +12758,11 @@ export namespace Prisma {
     aiEstimatedLift?: SortOrder
     aiRecommendedAction?: SortOrder
     selectedForIntervention?: SortOrder
+    diagnosis?: SortOrder
+    diagnosisConfidence?: SortOrder
+    aiNaturalRecoveryProbability?: SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrder
+    diagnosedAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12604,6 +12775,9 @@ export namespace Prisma {
     hoursSinceFailure?: SortOrder
     naturalRecoveryProbability?: SortOrder
     aiEstimatedLift?: SortOrder
+    diagnosisConfidence?: SortOrder
+    aiNaturalRecoveryProbability?: SortOrder
+    aiRecoveryWithInterventionProbability?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12652,6 +12826,20 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PaymentCreateNestedManyWithoutCustomerInput = {
@@ -13068,6 +13256,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type PaymentUpdateOneRequiredWithoutOpportunityNestedInput = {
     create?: XOR<PaymentCreateWithoutOpportunityInput, PaymentUncheckedCreateWithoutOpportunityInput>
     connectOrCreate?: PaymentCreateOrConnectWithoutOpportunityInput
@@ -13290,6 +13482,17 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -13336,6 +13539,20 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PaymentCreateWithoutCustomerInput = {
@@ -13420,6 +13637,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
   }
@@ -13445,6 +13667,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -13556,6 +13783,11 @@ export namespace Prisma {
     aiEstimatedLift?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecommendedAction?: StringNullableFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolFilter<"Opportunity"> | boolean
+    diagnosis?: StringNullableFilter<"Opportunity"> | string | null
+    diagnosisConfidence?: FloatNullableFilter<"Opportunity"> | number | null
+    aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
+    aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
+    diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
   }
 
@@ -13660,6 +13892,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
   }
@@ -13685,6 +13922,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -13799,6 +14041,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
   }
@@ -13824,6 +14071,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14264,6 +14516,11 @@ export namespace Prisma {
     aiEstimatedLift?: number | null
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
+    diagnosis?: string | null
+    diagnosisConfidence?: number | null
+    aiNaturalRecoveryProbability?: number | null
+    aiRecoveryWithInterventionProbability?: number | null
+    diagnosedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -14346,6 +14603,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
   }
@@ -14371,6 +14633,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14395,6 +14662,11 @@ export namespace Prisma {
     aiEstimatedLift?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
