@@ -149,12 +149,18 @@ exports.Prisma.PaymentEventScalarFieldEnum = {
 
 exports.Prisma.RecoveryCaseScalarFieldEnum = {
   id: 'id',
-  status: 'status',
-  amount: 'amount',
-  customerId: 'customerId',
   paymentId: 'paymentId',
+  diagnosis: 'diagnosis',
+  confidence: 'confidence',
+  naturalRecoveryProbability: 'naturalRecoveryProbability',
+  interventionRecoveryProbability: 'interventionRecoveryProbability',
+  incrementalLift: 'incrementalLift',
+  expectedIncrementalRevenue: 'expectedIncrementalRevenue',
+  recommendedAction: 'recommendedAction',
+  status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  customerId: 'customerId'
 };
 
 exports.Prisma.RecoveryActionScalarFieldEnum = {
@@ -169,7 +175,8 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   id: 'id',
   action: 'action',
   details: 'details',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  recoveryCaseId: 'recoveryCaseId'
 };
 
 exports.Prisma.PolicyScalarFieldEnum = {
@@ -208,6 +215,8 @@ exports.Prisma.OpportunityScalarFieldEnum = {
   aiNaturalRecoveryProbability: 'aiNaturalRecoveryProbability',
   aiRecoveryWithInterventionProbability: 'aiRecoveryWithInterventionProbability',
   diagnosedAt: 'diagnosedAt',
+  incrementalLift: 'incrementalLift',
+  expectedIncrementalRevenue: 'expectedIncrementalRevenue',
   createdAt: 'createdAt'
 };
 
@@ -240,7 +249,21 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.RecoveryActionType = exports.$Enums.RecoveryActionType = {
+  RETRY: 'RETRY',
+  PAYMENT_LINK: 'PAYMENT_LINK',
+  REMINDER: 'REMINDER',
+  DO_NOTHING: 'DO_NOTHING',
+  ESCALATE: 'ESCALATE'
+};
 
+exports.RecoveryCaseStatus = exports.$Enums.RecoveryCaseStatus = {
+  OPEN: 'OPEN',
+  ACTION_PENDING: 'ACTION_PENDING',
+  RECOVERED: 'RECOVERED',
+  EXHAUSTED: 'EXHAUSTED',
+  STOPPED: 'STOPPED'
+};
 
 exports.Prisma.ModelName = {
   Customer: 'Customer',

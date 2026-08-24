@@ -8,6 +8,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RecoveryActionType {
+  RETRY
+  PAYMENT_LINK
+  REMINDER
+  DO_NOTHING
+  ESCALATE
+}
+
+enum RecoveryCaseStatus {
+  OPEN
+  ACTION_PENDING
+  RECOVERED
+  EXHAUSTED
+  STOPPED
+}
+
 model Customer {
   id            String         @id @default(uuid())
   email         String         @unique
@@ -43,16 +59,32 @@ model PaymentEvent {
 }
 
 model RecoveryCase {
-  id         String           @id @default(uuid())
-  status     String // e.g., "OPEN", "IN_PROGRESS", "RECOVERED", "FAILED"
-  amount     Float
-  customerId String
-  customer   Customer         @relation(fields: [customerId], references: [id])
-  paymentId  String
-  payment    Payment          @relation(fields: [paymentId], references: [id])
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
-  actions    RecoveryAction[]
+  id        String @id @default(cuid())
+  paymentId String
+
+  diagnosis  String?
+  confidence Float?
+
+  naturalRecoveryProbability      Float?
+  interventionRecoveryProbability Float?
+
+  incrementalLift            Float?
+  expectedIncrementalRevenue Decimal? @db.Decimal(12, 2)
+
+  recommendedAction RecoveryActionType?
+  status            RecoveryCaseStatus  @default(OPEN)
+
+  payment   Payment          @relation(fields: [paymentId], references: [id])
+  actions   RecoveryAction[]
+  auditLogs AuditLog[]
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
+
+  @@index([paymentId])
+  @@index([status])
 }
 
 model RecoveryAction {
@@ -65,10 +97,12 @@ model RecoveryAction {
 }
 
 model AuditLog {
-  id        String   @id @default(uuid())
-  action    String
-  details   Json?
-  createdAt DateTime @default(now())
+  id             String        @id @default(uuid())
+  action         String
+  details        Json?
+  createdAt      DateTime      @default(now())
+  recoveryCase   RecoveryCase? @relation(fields: [recoveryCaseId], references: [id])
+  recoveryCaseId String?
 }
 
 model Policy {
@@ -116,6 +150,9 @@ model Opportunity {
   aiNaturalRecoveryProbability          Float?
   aiRecoveryWithInterventionProbability Float?
   diagnosedAt                           DateTime?
+
+  incrementalLift            Float?
+  expectedIncrementalRevenue Decimal? @db.Decimal(12, 2)
 
   createdAt DateTime @default(now())
 }

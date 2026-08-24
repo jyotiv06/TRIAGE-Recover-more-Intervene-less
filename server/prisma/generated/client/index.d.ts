@@ -55,6 +55,41 @@ export type Policy = $Result.DefaultSelection<Prisma.$PolicyPayload>
 export type Opportunity = $Result.DefaultSelection<Prisma.$OpportunityPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const RecoveryActionType: {
+  RETRY: 'RETRY',
+  PAYMENT_LINK: 'PAYMENT_LINK',
+  REMINDER: 'REMINDER',
+  DO_NOTHING: 'DO_NOTHING',
+  ESCALATE: 'ESCALATE'
+};
+
+export type RecoveryActionType = (typeof RecoveryActionType)[keyof typeof RecoveryActionType]
+
+
+export const RecoveryCaseStatus: {
+  OPEN: 'OPEN',
+  ACTION_PENDING: 'ACTION_PENDING',
+  RECOVERED: 'RECOVERED',
+  EXHAUSTED: 'EXHAUSTED',
+  STOPPED: 'STOPPED'
+};
+
+export type RecoveryCaseStatus = (typeof RecoveryCaseStatus)[keyof typeof RecoveryCaseStatus]
+
+}
+
+export type RecoveryActionType = $Enums.RecoveryActionType
+
+export const RecoveryActionType: typeof $Enums.RecoveryActionType
+
+export type RecoveryCaseStatus = $Enums.RecoveryCaseStatus
+
+export const RecoveryCaseStatus: typeof $Enums.RecoveryCaseStatus
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -1588,10 +1623,12 @@ export namespace Prisma {
 
   export type RecoveryCaseCountOutputType = {
     actions: number
+    auditLogs: number
   }
 
   export type RecoveryCaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     actions?: boolean | RecoveryCaseCountOutputTypeCountActionsArgs
+    auditLogs?: boolean | RecoveryCaseCountOutputTypeCountAuditLogsArgs
   }
 
   // Custom InputTypes
@@ -1610,6 +1647,13 @@ export namespace Prisma {
    */
   export type RecoveryCaseCountOutputTypeCountActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RecoveryActionWhereInput
+  }
+
+  /**
+   * RecoveryCaseCountOutputType without action
+   */
+  export type RecoveryCaseCountOutputTypeCountAuditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
   }
 
 
@@ -5009,81 +5053,133 @@ export namespace Prisma {
   }
 
   export type RecoveryCaseAvgAggregateOutputType = {
-    amount: number | null
+    confidence: number | null
+    naturalRecoveryProbability: number | null
+    interventionRecoveryProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
   }
 
   export type RecoveryCaseSumAggregateOutputType = {
-    amount: number | null
+    confidence: number | null
+    naturalRecoveryProbability: number | null
+    interventionRecoveryProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
   }
 
   export type RecoveryCaseMinAggregateOutputType = {
     id: string | null
-    status: string | null
-    amount: number | null
-    customerId: string | null
     paymentId: string | null
+    diagnosis: string | null
+    confidence: number | null
+    naturalRecoveryProbability: number | null
+    interventionRecoveryProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
+    recommendedAction: $Enums.RecoveryActionType | null
+    status: $Enums.RecoveryCaseStatus | null
     createdAt: Date | null
     updatedAt: Date | null
+    customerId: string | null
   }
 
   export type RecoveryCaseMaxAggregateOutputType = {
     id: string | null
-    status: string | null
-    amount: number | null
-    customerId: string | null
     paymentId: string | null
+    diagnosis: string | null
+    confidence: number | null
+    naturalRecoveryProbability: number | null
+    interventionRecoveryProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
+    recommendedAction: $Enums.RecoveryActionType | null
+    status: $Enums.RecoveryCaseStatus | null
     createdAt: Date | null
     updatedAt: Date | null
+    customerId: string | null
   }
 
   export type RecoveryCaseCountAggregateOutputType = {
     id: number
-    status: number
-    amount: number
-    customerId: number
     paymentId: number
+    diagnosis: number
+    confidence: number
+    naturalRecoveryProbability: number
+    interventionRecoveryProbability: number
+    incrementalLift: number
+    expectedIncrementalRevenue: number
+    recommendedAction: number
+    status: number
     createdAt: number
     updatedAt: number
+    customerId: number
     _all: number
   }
 
 
   export type RecoveryCaseAvgAggregateInputType = {
-    amount?: true
+    confidence?: true
+    naturalRecoveryProbability?: true
+    interventionRecoveryProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
   }
 
   export type RecoveryCaseSumAggregateInputType = {
-    amount?: true
+    confidence?: true
+    naturalRecoveryProbability?: true
+    interventionRecoveryProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
   }
 
   export type RecoveryCaseMinAggregateInputType = {
     id?: true
-    status?: true
-    amount?: true
-    customerId?: true
     paymentId?: true
+    diagnosis?: true
+    confidence?: true
+    naturalRecoveryProbability?: true
+    interventionRecoveryProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
+    recommendedAction?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
+    customerId?: true
   }
 
   export type RecoveryCaseMaxAggregateInputType = {
     id?: true
-    status?: true
-    amount?: true
-    customerId?: true
     paymentId?: true
+    diagnosis?: true
+    confidence?: true
+    naturalRecoveryProbability?: true
+    interventionRecoveryProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
+    recommendedAction?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
+    customerId?: true
   }
 
   export type RecoveryCaseCountAggregateInputType = {
     id?: true
-    status?: true
-    amount?: true
-    customerId?: true
     paymentId?: true
+    diagnosis?: true
+    confidence?: true
+    naturalRecoveryProbability?: true
+    interventionRecoveryProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
+    recommendedAction?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
+    customerId?: true
     _all?: true
   }
 
@@ -5175,12 +5271,18 @@ export namespace Prisma {
 
   export type RecoveryCaseGroupByOutputType = {
     id: string
-    status: string
-    amount: number
-    customerId: string
     paymentId: string
+    diagnosis: string | null
+    confidence: number | null
+    naturalRecoveryProbability: number | null
+    interventionRecoveryProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
+    recommendedAction: $Enums.RecoveryActionType | null
+    status: $Enums.RecoveryCaseStatus
     createdAt: Date
     updatedAt: Date
+    customerId: string | null
     _count: RecoveryCaseCountAggregateOutputType | null
     _avg: RecoveryCaseAvgAggregateOutputType | null
     _sum: RecoveryCaseSumAggregateOutputType | null
@@ -5204,83 +5306,116 @@ export namespace Prisma {
 
   export type RecoveryCaseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    status?: boolean
-    amount?: boolean
-    customerId?: boolean
     paymentId?: boolean
+    diagnosis?: boolean
+    confidence?: boolean
+    naturalRecoveryProbability?: boolean
+    interventionRecoveryProbability?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
+    recommendedAction?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    customerId?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     actions?: boolean | RecoveryCase$actionsArgs<ExtArgs>
+    auditLogs?: boolean | RecoveryCase$auditLogsArgs<ExtArgs>
+    customer?: boolean | RecoveryCase$customerArgs<ExtArgs>
     _count?: boolean | RecoveryCaseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recoveryCase"]>
 
   export type RecoveryCaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    status?: boolean
-    amount?: boolean
-    customerId?: boolean
     paymentId?: boolean
+    diagnosis?: boolean
+    confidence?: boolean
+    naturalRecoveryProbability?: boolean
+    interventionRecoveryProbability?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
+    recommendedAction?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    customerId?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
+    customer?: boolean | RecoveryCase$customerArgs<ExtArgs>
   }, ExtArgs["result"]["recoveryCase"]>
 
   export type RecoveryCaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    status?: boolean
-    amount?: boolean
-    customerId?: boolean
     paymentId?: boolean
+    diagnosis?: boolean
+    confidence?: boolean
+    naturalRecoveryProbability?: boolean
+    interventionRecoveryProbability?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
+    recommendedAction?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    customerId?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
+    customer?: boolean | RecoveryCase$customerArgs<ExtArgs>
   }, ExtArgs["result"]["recoveryCase"]>
 
   export type RecoveryCaseSelectScalar = {
     id?: boolean
-    status?: boolean
-    amount?: boolean
-    customerId?: boolean
     paymentId?: boolean
+    diagnosis?: boolean
+    confidence?: boolean
+    naturalRecoveryProbability?: boolean
+    interventionRecoveryProbability?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
+    recommendedAction?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    customerId?: boolean
   }
 
-  export type RecoveryCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "amount" | "customerId" | "paymentId" | "createdAt" | "updatedAt", ExtArgs["result"]["recoveryCase"]>
+  export type RecoveryCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "diagnosis" | "confidence" | "naturalRecoveryProbability" | "interventionRecoveryProbability" | "incrementalLift" | "expectedIncrementalRevenue" | "recommendedAction" | "status" | "createdAt" | "updatedAt" | "customerId", ExtArgs["result"]["recoveryCase"]>
   export type RecoveryCaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     actions?: boolean | RecoveryCase$actionsArgs<ExtArgs>
+    auditLogs?: boolean | RecoveryCase$auditLogsArgs<ExtArgs>
+    customer?: boolean | RecoveryCase$customerArgs<ExtArgs>
     _count?: boolean | RecoveryCaseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RecoveryCaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
+    customer?: boolean | RecoveryCase$customerArgs<ExtArgs>
   }
   export type RecoveryCaseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
+    customer?: boolean | RecoveryCase$customerArgs<ExtArgs>
   }
 
   export type $RecoveryCasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "RecoveryCase"
     objects: {
-      customer: Prisma.$CustomerPayload<ExtArgs>
       payment: Prisma.$PaymentPayload<ExtArgs>
       actions: Prisma.$RecoveryActionPayload<ExtArgs>[]
+      auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      customer: Prisma.$CustomerPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      status: string
-      amount: number
-      customerId: string
       paymentId: string
+      diagnosis: string | null
+      confidence: number | null
+      naturalRecoveryProbability: number | null
+      interventionRecoveryProbability: number | null
+      incrementalLift: number | null
+      expectedIncrementalRevenue: Prisma.Decimal | null
+      recommendedAction: $Enums.RecoveryActionType | null
+      status: $Enums.RecoveryCaseStatus
       createdAt: Date
       updatedAt: Date
+      customerId: string | null
     }, ExtArgs["result"]["recoveryCase"]>
     composites: {}
   }
@@ -5675,9 +5810,10 @@ export namespace Prisma {
    */
   export interface Prisma__RecoveryCaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payment<T extends PaymentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PaymentDefaultArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     actions<T extends RecoveryCase$actionsArgs<ExtArgs> = {}>(args?: Subset<T, RecoveryCase$actionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecoveryActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auditLogs<T extends RecoveryCase$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, RecoveryCase$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customer<T extends RecoveryCase$customerArgs<ExtArgs> = {}>(args?: Subset<T, RecoveryCase$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5708,12 +5844,18 @@ export namespace Prisma {
    */
   interface RecoveryCaseFieldRefs {
     readonly id: FieldRef<"RecoveryCase", 'String'>
-    readonly status: FieldRef<"RecoveryCase", 'String'>
-    readonly amount: FieldRef<"RecoveryCase", 'Float'>
-    readonly customerId: FieldRef<"RecoveryCase", 'String'>
     readonly paymentId: FieldRef<"RecoveryCase", 'String'>
+    readonly diagnosis: FieldRef<"RecoveryCase", 'String'>
+    readonly confidence: FieldRef<"RecoveryCase", 'Float'>
+    readonly naturalRecoveryProbability: FieldRef<"RecoveryCase", 'Float'>
+    readonly interventionRecoveryProbability: FieldRef<"RecoveryCase", 'Float'>
+    readonly incrementalLift: FieldRef<"RecoveryCase", 'Float'>
+    readonly expectedIncrementalRevenue: FieldRef<"RecoveryCase", 'Decimal'>
+    readonly recommendedAction: FieldRef<"RecoveryCase", 'RecoveryActionType'>
+    readonly status: FieldRef<"RecoveryCase", 'RecoveryCaseStatus'>
     readonly createdAt: FieldRef<"RecoveryCase", 'DateTime'>
     readonly updatedAt: FieldRef<"RecoveryCase", 'DateTime'>
+    readonly customerId: FieldRef<"RecoveryCase", 'String'>
   }
     
 
@@ -6131,6 +6273,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RecoveryActionScalarFieldEnum | RecoveryActionScalarFieldEnum[]
+  }
+
+  /**
+   * RecoveryCase.auditLogs
+   */
+  export type RecoveryCase$auditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    cursor?: AuditLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * RecoveryCase.customer
+   */
+  export type RecoveryCase$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Customer
+     */
+    omit?: CustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
   }
 
   /**
@@ -7224,12 +7409,14 @@ export namespace Prisma {
     id: string | null
     action: string | null
     createdAt: Date | null
+    recoveryCaseId: string | null
   }
 
   export type AuditLogMaxAggregateOutputType = {
     id: string | null
     action: string | null
     createdAt: Date | null
+    recoveryCaseId: string | null
   }
 
   export type AuditLogCountAggregateOutputType = {
@@ -7237,6 +7424,7 @@ export namespace Prisma {
     action: number
     details: number
     createdAt: number
+    recoveryCaseId: number
     _all: number
   }
 
@@ -7245,12 +7433,14 @@ export namespace Prisma {
     id?: true
     action?: true
     createdAt?: true
+    recoveryCaseId?: true
   }
 
   export type AuditLogMaxAggregateInputType = {
     id?: true
     action?: true
     createdAt?: true
+    recoveryCaseId?: true
   }
 
   export type AuditLogCountAggregateInputType = {
@@ -7258,6 +7448,7 @@ export namespace Prisma {
     action?: true
     details?: true
     createdAt?: true
+    recoveryCaseId?: true
     _all?: true
   }
 
@@ -7338,6 +7529,7 @@ export namespace Prisma {
     action: string
     details: JsonValue | null
     createdAt: Date
+    recoveryCaseId: string | null
     _count: AuditLogCountAggregateOutputType | null
     _min: AuditLogMinAggregateOutputType | null
     _max: AuditLogMaxAggregateOutputType | null
@@ -7362,6 +7554,8 @@ export namespace Prisma {
     action?: boolean
     details?: boolean
     createdAt?: boolean
+    recoveryCaseId?: boolean
+    recoveryCase?: boolean | AuditLog$recoveryCaseArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
 
   export type AuditLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7369,6 +7563,8 @@ export namespace Prisma {
     action?: boolean
     details?: boolean
     createdAt?: boolean
+    recoveryCaseId?: boolean
+    recoveryCase?: boolean | AuditLog$recoveryCaseArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
 
   export type AuditLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7376,6 +7572,8 @@ export namespace Prisma {
     action?: boolean
     details?: boolean
     createdAt?: boolean
+    recoveryCaseId?: boolean
+    recoveryCase?: boolean | AuditLog$recoveryCaseArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
 
   export type AuditLogSelectScalar = {
@@ -7383,18 +7581,31 @@ export namespace Prisma {
     action?: boolean
     details?: boolean
     createdAt?: boolean
+    recoveryCaseId?: boolean
   }
 
-  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "action" | "details" | "createdAt", ExtArgs["result"]["auditLog"]>
+  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "action" | "details" | "createdAt" | "recoveryCaseId", ExtArgs["result"]["auditLog"]>
+  export type AuditLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recoveryCase?: boolean | AuditLog$recoveryCaseArgs<ExtArgs>
+  }
+  export type AuditLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recoveryCase?: boolean | AuditLog$recoveryCaseArgs<ExtArgs>
+  }
+  export type AuditLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recoveryCase?: boolean | AuditLog$recoveryCaseArgs<ExtArgs>
+  }
 
   export type $AuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AuditLog"
-    objects: {}
+    objects: {
+      recoveryCase: Prisma.$RecoveryCasePayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       action: string
       details: Prisma.JsonValue | null
       createdAt: Date
+      recoveryCaseId: string | null
     }, ExtArgs["result"]["auditLog"]>
     composites: {}
   }
@@ -7789,6 +8000,7 @@ export namespace Prisma {
    */
   export interface Prisma__AuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    recoveryCase<T extends AuditLog$recoveryCaseArgs<ExtArgs> = {}>(args?: Subset<T, AuditLog$recoveryCaseArgs<ExtArgs>>): Prisma__RecoveryCaseClient<$Result.GetResult<Prisma.$RecoveryCasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7822,6 +8034,7 @@ export namespace Prisma {
     readonly action: FieldRef<"AuditLog", 'String'>
     readonly details: FieldRef<"AuditLog", 'Json'>
     readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
+    readonly recoveryCaseId: FieldRef<"AuditLog", 'String'>
   }
     
 
@@ -7838,6 +8051,10 @@ export namespace Prisma {
      * Omit specific fields from the AuditLog
      */
     omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
     /**
      * Filter, which AuditLog to fetch.
      */
@@ -7857,6 +8074,10 @@ export namespace Prisma {
      */
     omit?: AuditLogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
      * Filter, which AuditLog to fetch.
      */
     where: AuditLogWhereUniqueInput
@@ -7874,6 +8095,10 @@ export namespace Prisma {
      * Omit specific fields from the AuditLog
      */
     omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
     /**
      * Filter, which AuditLog to fetch.
      */
@@ -7923,6 +8148,10 @@ export namespace Prisma {
      */
     omit?: AuditLogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
      * Filter, which AuditLog to fetch.
      */
     where?: AuditLogWhereInput
@@ -7971,6 +8200,10 @@ export namespace Prisma {
      */
     omit?: AuditLogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
      * Filter, which AuditLogs to fetch.
      */
     where?: AuditLogWhereInput
@@ -8014,6 +8247,10 @@ export namespace Prisma {
      */
     omit?: AuditLogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
      * The data needed to create a AuditLog.
      */
     data: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
@@ -8047,6 +8284,10 @@ export namespace Prisma {
      */
     data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8061,6 +8302,10 @@ export namespace Prisma {
      * Omit specific fields from the AuditLog
      */
     omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
     /**
      * The data needed to update a AuditLog.
      */
@@ -8113,6 +8358,10 @@ export namespace Prisma {
      * Limit how many AuditLogs to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8127,6 +8376,10 @@ export namespace Prisma {
      * Omit specific fields from the AuditLog
      */
     omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
     /**
      * The filter to search for the AuditLog to update in case it exists.
      */
@@ -8154,6 +8407,10 @@ export namespace Prisma {
      */
     omit?: AuditLogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
      * Filter which AuditLog to delete.
      */
     where: AuditLogWhereUniqueInput
@@ -8174,6 +8431,25 @@ export namespace Prisma {
   }
 
   /**
+   * AuditLog.recoveryCase
+   */
+  export type AuditLog$recoveryCaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecoveryCase
+     */
+    select?: RecoveryCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecoveryCase
+     */
+    omit?: RecoveryCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecoveryCaseInclude<ExtArgs> | null
+    where?: RecoveryCaseWhereInput
+  }
+
+  /**
    * AuditLog without action
    */
   export type AuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8185,6 +8461,10 @@ export namespace Prisma {
      * Omit specific fields from the AuditLog
      */
     omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
   }
 
 
@@ -9216,6 +9496,8 @@ export namespace Prisma {
     diagnosisConfidence: number | null
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
   }
 
   export type OpportunitySumAggregateOutputType = {
@@ -9230,6 +9512,8 @@ export namespace Prisma {
     diagnosisConfidence: number | null
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
   }
 
   export type OpportunityMinAggregateOutputType = {
@@ -9259,6 +9543,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
     diagnosedAt: Date | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
     createdAt: Date | null
   }
 
@@ -9289,6 +9575,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
     diagnosedAt: Date | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
     createdAt: Date | null
   }
 
@@ -9319,6 +9607,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability: number
     aiRecoveryWithInterventionProbability: number
     diagnosedAt: number
+    incrementalLift: number
+    expectedIncrementalRevenue: number
     createdAt: number
     _all: number
   }
@@ -9336,6 +9626,8 @@ export namespace Prisma {
     diagnosisConfidence?: true
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
   }
 
   export type OpportunitySumAggregateInputType = {
@@ -9350,6 +9642,8 @@ export namespace Prisma {
     diagnosisConfidence?: true
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
   }
 
   export type OpportunityMinAggregateInputType = {
@@ -9379,6 +9673,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
     diagnosedAt?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
     createdAt?: true
   }
 
@@ -9409,6 +9705,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
     diagnosedAt?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
     createdAt?: true
   }
 
@@ -9439,6 +9737,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
     diagnosedAt?: true
+    incrementalLift?: true
+    expectedIncrementalRevenue?: true
     createdAt?: true
     _all?: true
   }
@@ -9556,6 +9856,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
     diagnosedAt: Date | null
+    incrementalLift: number | null
+    expectedIncrementalRevenue: Decimal | null
     createdAt: Date
     _count: OpportunityCountAggregateOutputType | null
     _avg: OpportunityAvgAggregateOutputType | null
@@ -9605,6 +9907,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
     diagnosedAt?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9637,6 +9941,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
     diagnosedAt?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9669,6 +9975,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
     diagnosedAt?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9701,10 +10009,12 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
     diagnosedAt?: boolean
+    incrementalLift?: boolean
+    expectedIncrementalRevenue?: boolean
     createdAt?: boolean
   }
 
-  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "createdAt", ExtArgs["result"]["opportunity"]>
+  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "createdAt", ExtArgs["result"]["opportunity"]>
   export type OpportunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9751,6 +10061,8 @@ export namespace Prisma {
       aiNaturalRecoveryProbability: number | null
       aiRecoveryWithInterventionProbability: number | null
       diagnosedAt: Date | null
+      incrementalLift: number | null
+      expectedIncrementalRevenue: Prisma.Decimal | null
       createdAt: Date
     }, ExtArgs["result"]["opportunity"]>
     composites: {}
@@ -10203,6 +10515,8 @@ export namespace Prisma {
     readonly aiNaturalRecoveryProbability: FieldRef<"Opportunity", 'Float'>
     readonly aiRecoveryWithInterventionProbability: FieldRef<"Opportunity", 'Float'>
     readonly diagnosedAt: FieldRef<"Opportunity", 'DateTime'>
+    readonly incrementalLift: FieldRef<"Opportunity", 'Float'>
+    readonly expectedIncrementalRevenue: FieldRef<"Opportunity", 'Decimal'>
     readonly createdAt: FieldRef<"Opportunity", 'DateTime'>
   }
     
@@ -10669,12 +10983,18 @@ export namespace Prisma {
 
   export const RecoveryCaseScalarFieldEnum: {
     id: 'id',
-    status: 'status',
-    amount: 'amount',
-    customerId: 'customerId',
     paymentId: 'paymentId',
+    diagnosis: 'diagnosis',
+    confidence: 'confidence',
+    naturalRecoveryProbability: 'naturalRecoveryProbability',
+    interventionRecoveryProbability: 'interventionRecoveryProbability',
+    incrementalLift: 'incrementalLift',
+    expectedIncrementalRevenue: 'expectedIncrementalRevenue',
+    recommendedAction: 'recommendedAction',
+    status: 'status',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    customerId: 'customerId'
   };
 
   export type RecoveryCaseScalarFieldEnum = (typeof RecoveryCaseScalarFieldEnum)[keyof typeof RecoveryCaseScalarFieldEnum]
@@ -10695,7 +11015,8 @@ export namespace Prisma {
     id: 'id',
     action: 'action',
     details: 'details',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    recoveryCaseId: 'recoveryCaseId'
   };
 
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
@@ -10740,6 +11061,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability: 'aiNaturalRecoveryProbability',
     aiRecoveryWithInterventionProbability: 'aiRecoveryWithInterventionProbability',
     diagnosedAt: 'diagnosedAt',
+    incrementalLift: 'incrementalLift',
+    expectedIncrementalRevenue: 'expectedIncrementalRevenue',
     createdAt: 'createdAt'
   };
 
@@ -10852,6 +11175,48 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RecoveryActionType'
+   */
+  export type EnumRecoveryActionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecoveryActionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RecoveryActionType[]'
+   */
+  export type ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecoveryActionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RecoveryCaseStatus'
+   */
+  export type EnumRecoveryCaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecoveryCaseStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'RecoveryCaseStatus[]'
+   */
+  export type ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecoveryCaseStatus[]'>
     
 
 
@@ -11076,28 +11441,42 @@ export namespace Prisma {
     OR?: RecoveryCaseWhereInput[]
     NOT?: RecoveryCaseWhereInput | RecoveryCaseWhereInput[]
     id?: StringFilter<"RecoveryCase"> | string
-    status?: StringFilter<"RecoveryCase"> | string
-    amount?: FloatFilter<"RecoveryCase"> | number
-    customerId?: StringFilter<"RecoveryCase"> | string
     paymentId?: StringFilter<"RecoveryCase"> | string
+    diagnosis?: StringNullableFilter<"RecoveryCase"> | string | null
+    confidence?: FloatNullableFilter<"RecoveryCase"> | number | null
+    naturalRecoveryProbability?: FloatNullableFilter<"RecoveryCase"> | number | null
+    interventionRecoveryProbability?: FloatNullableFilter<"RecoveryCase"> | number | null
+    incrementalLift?: FloatNullableFilter<"RecoveryCase"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableFilter<"RecoveryCase"> | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: EnumRecoveryActionTypeNullableFilter<"RecoveryCase"> | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFilter<"RecoveryCase"> | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFilter<"RecoveryCase"> | Date | string
     updatedAt?: DateTimeFilter<"RecoveryCase"> | Date | string
-    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    customerId?: StringNullableFilter<"RecoveryCase"> | string | null
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     actions?: RecoveryActionListRelationFilter
+    auditLogs?: AuditLogListRelationFilter
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
   }
 
   export type RecoveryCaseOrderByWithRelationInput = {
     id?: SortOrder
-    status?: SortOrder
-    amount?: SortOrder
-    customerId?: SortOrder
     paymentId?: SortOrder
+    diagnosis?: SortOrderInput | SortOrder
+    confidence?: SortOrderInput | SortOrder
+    naturalRecoveryProbability?: SortOrderInput | SortOrder
+    interventionRecoveryProbability?: SortOrderInput | SortOrder
+    incrementalLift?: SortOrderInput | SortOrder
+    expectedIncrementalRevenue?: SortOrderInput | SortOrder
+    recommendedAction?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    customer?: CustomerOrderByWithRelationInput
+    customerId?: SortOrderInput | SortOrder
     payment?: PaymentOrderByWithRelationInput
     actions?: RecoveryActionOrderByRelationAggregateInput
+    auditLogs?: AuditLogOrderByRelationAggregateInput
+    customer?: CustomerOrderByWithRelationInput
   }
 
   export type RecoveryCaseWhereUniqueInput = Prisma.AtLeast<{
@@ -11105,25 +11484,38 @@ export namespace Prisma {
     AND?: RecoveryCaseWhereInput | RecoveryCaseWhereInput[]
     OR?: RecoveryCaseWhereInput[]
     NOT?: RecoveryCaseWhereInput | RecoveryCaseWhereInput[]
-    status?: StringFilter<"RecoveryCase"> | string
-    amount?: FloatFilter<"RecoveryCase"> | number
-    customerId?: StringFilter<"RecoveryCase"> | string
     paymentId?: StringFilter<"RecoveryCase"> | string
+    diagnosis?: StringNullableFilter<"RecoveryCase"> | string | null
+    confidence?: FloatNullableFilter<"RecoveryCase"> | number | null
+    naturalRecoveryProbability?: FloatNullableFilter<"RecoveryCase"> | number | null
+    interventionRecoveryProbability?: FloatNullableFilter<"RecoveryCase"> | number | null
+    incrementalLift?: FloatNullableFilter<"RecoveryCase"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableFilter<"RecoveryCase"> | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: EnumRecoveryActionTypeNullableFilter<"RecoveryCase"> | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFilter<"RecoveryCase"> | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFilter<"RecoveryCase"> | Date | string
     updatedAt?: DateTimeFilter<"RecoveryCase"> | Date | string
-    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    customerId?: StringNullableFilter<"RecoveryCase"> | string | null
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     actions?: RecoveryActionListRelationFilter
+    auditLogs?: AuditLogListRelationFilter
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
   }, "id">
 
   export type RecoveryCaseOrderByWithAggregationInput = {
     id?: SortOrder
-    status?: SortOrder
-    amount?: SortOrder
-    customerId?: SortOrder
     paymentId?: SortOrder
+    diagnosis?: SortOrderInput | SortOrder
+    confidence?: SortOrderInput | SortOrder
+    naturalRecoveryProbability?: SortOrderInput | SortOrder
+    interventionRecoveryProbability?: SortOrderInput | SortOrder
+    incrementalLift?: SortOrderInput | SortOrder
+    expectedIncrementalRevenue?: SortOrderInput | SortOrder
+    recommendedAction?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrderInput | SortOrder
     _count?: RecoveryCaseCountOrderByAggregateInput
     _avg?: RecoveryCaseAvgOrderByAggregateInput
     _max?: RecoveryCaseMaxOrderByAggregateInput
@@ -11136,12 +11528,18 @@ export namespace Prisma {
     OR?: RecoveryCaseScalarWhereWithAggregatesInput[]
     NOT?: RecoveryCaseScalarWhereWithAggregatesInput | RecoveryCaseScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"RecoveryCase"> | string
-    status?: StringWithAggregatesFilter<"RecoveryCase"> | string
-    amount?: FloatWithAggregatesFilter<"RecoveryCase"> | number
-    customerId?: StringWithAggregatesFilter<"RecoveryCase"> | string
     paymentId?: StringWithAggregatesFilter<"RecoveryCase"> | string
+    diagnosis?: StringNullableWithAggregatesFilter<"RecoveryCase"> | string | null
+    confidence?: FloatNullableWithAggregatesFilter<"RecoveryCase"> | number | null
+    naturalRecoveryProbability?: FloatNullableWithAggregatesFilter<"RecoveryCase"> | number | null
+    interventionRecoveryProbability?: FloatNullableWithAggregatesFilter<"RecoveryCase"> | number | null
+    incrementalLift?: FloatNullableWithAggregatesFilter<"RecoveryCase"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableWithAggregatesFilter<"RecoveryCase"> | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: EnumRecoveryActionTypeNullableWithAggregatesFilter<"RecoveryCase"> | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusWithAggregatesFilter<"RecoveryCase"> | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeWithAggregatesFilter<"RecoveryCase"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"RecoveryCase"> | Date | string
+    customerId?: StringNullableWithAggregatesFilter<"RecoveryCase"> | string | null
   }
 
   export type RecoveryActionWhereInput = {
@@ -11207,6 +11605,8 @@ export namespace Prisma {
     action?: StringFilter<"AuditLog"> | string
     details?: JsonNullableFilter<"AuditLog">
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    recoveryCaseId?: StringNullableFilter<"AuditLog"> | string | null
+    recoveryCase?: XOR<RecoveryCaseNullableScalarRelationFilter, RecoveryCaseWhereInput> | null
   }
 
   export type AuditLogOrderByWithRelationInput = {
@@ -11214,6 +11614,8 @@ export namespace Prisma {
     action?: SortOrder
     details?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    recoveryCaseId?: SortOrderInput | SortOrder
+    recoveryCase?: RecoveryCaseOrderByWithRelationInput
   }
 
   export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
@@ -11224,6 +11626,8 @@ export namespace Prisma {
     action?: StringFilter<"AuditLog"> | string
     details?: JsonNullableFilter<"AuditLog">
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    recoveryCaseId?: StringNullableFilter<"AuditLog"> | string | null
+    recoveryCase?: XOR<RecoveryCaseNullableScalarRelationFilter, RecoveryCaseWhereInput> | null
   }, "id">
 
   export type AuditLogOrderByWithAggregationInput = {
@@ -11231,6 +11635,7 @@ export namespace Prisma {
     action?: SortOrder
     details?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    recoveryCaseId?: SortOrderInput | SortOrder
     _count?: AuditLogCountOrderByAggregateInput
     _max?: AuditLogMaxOrderByAggregateInput
     _min?: AuditLogMinOrderByAggregateInput
@@ -11244,6 +11649,7 @@ export namespace Prisma {
     action?: StringWithAggregatesFilter<"AuditLog"> | string
     details?: JsonNullableWithAggregatesFilter<"AuditLog">
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
+    recoveryCaseId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
   }
 
   export type PolicyWhereInput = {
@@ -11333,6 +11739,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
     diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
+    incrementalLift?: FloatNullableFilter<"Opportunity"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11365,6 +11773,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: SortOrderInput | SortOrder
     aiRecoveryWithInterventionProbability?: SortOrderInput | SortOrder
     diagnosedAt?: SortOrderInput | SortOrder
+    incrementalLift?: SortOrderInput | SortOrder
+    expectedIncrementalRevenue?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     payment?: PaymentOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
@@ -11400,6 +11810,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
     diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
+    incrementalLift?: FloatNullableFilter<"Opportunity"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11432,6 +11844,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: SortOrderInput | SortOrder
     aiRecoveryWithInterventionProbability?: SortOrderInput | SortOrder
     diagnosedAt?: SortOrderInput | SortOrder
+    incrementalLift?: SortOrderInput | SortOrder
+    expectedIncrementalRevenue?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OpportunityCountOrderByAggregateInput
     _avg?: OpportunityAvgOrderByAggregateInput
@@ -11470,6 +11884,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
     diagnosedAt?: DateTimeNullableWithAggregatesFilter<"Opportunity"> | Date | string | null
+    incrementalLift?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableWithAggregatesFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
   }
 
@@ -11679,74 +12095,120 @@ export namespace Prisma {
 
   export type RecoveryCaseCreateInput = {
     id?: string
-    status: string
-    amount: number
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    customer: CustomerCreateNestedOneWithoutRecoveryCasesInput
     payment: PaymentCreateNestedOneWithoutRecoveryCasesInput
     actions?: RecoveryActionCreateNestedManyWithoutRecoveryCaseInput
+    auditLogs?: AuditLogCreateNestedManyWithoutRecoveryCaseInput
+    customer?: CustomerCreateNestedOneWithoutRecoveryCasesInput
   }
 
   export type RecoveryCaseUncheckedCreateInput = {
     id?: string
-    status: string
-    amount: number
-    customerId: string
     paymentId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
     actions?: RecoveryActionUncheckedCreateNestedManyWithoutRecoveryCaseInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutRecoveryCaseInput
   }
 
   export type RecoveryCaseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customer?: CustomerUpdateOneRequiredWithoutRecoveryCasesNestedInput
     payment?: PaymentUpdateOneRequiredWithoutRecoveryCasesNestedInput
     actions?: RecoveryActionUpdateManyWithoutRecoveryCaseNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutRecoveryCaseNestedInput
+    customer?: CustomerUpdateOneWithoutRecoveryCasesNestedInput
   }
 
   export type RecoveryCaseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    customerId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     actions?: RecoveryActionUncheckedUpdateManyWithoutRecoveryCaseNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutRecoveryCaseNestedInput
   }
 
   export type RecoveryCaseCreateManyInput = {
     id?: string
-    status: string
-    amount: number
-    customerId: string
     paymentId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
   }
 
   export type RecoveryCaseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RecoveryCaseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    customerId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RecoveryActionCreateInput = {
@@ -11809,6 +12271,7 @@ export namespace Prisma {
     action: string
     details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    recoveryCase?: RecoveryCaseCreateNestedOneWithoutAuditLogsInput
   }
 
   export type AuditLogUncheckedCreateInput = {
@@ -11816,6 +12279,7 @@ export namespace Prisma {
     action: string
     details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    recoveryCaseId?: string | null
   }
 
   export type AuditLogUpdateInput = {
@@ -11823,6 +12287,7 @@ export namespace Prisma {
     action?: StringFieldUpdateOperationsInput | string
     details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recoveryCase?: RecoveryCaseUpdateOneWithoutAuditLogsNestedInput
   }
 
   export type AuditLogUncheckedUpdateInput = {
@@ -11830,6 +12295,7 @@ export namespace Prisma {
     action?: StringFieldUpdateOperationsInput | string
     details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recoveryCaseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AuditLogCreateManyInput = {
@@ -11837,6 +12303,7 @@ export namespace Prisma {
     action: string
     details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    recoveryCaseId?: string | null
   }
 
   export type AuditLogUpdateManyMutationInput = {
@@ -11851,6 +12318,7 @@ export namespace Prisma {
     action?: StringFieldUpdateOperationsInput | string
     details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recoveryCaseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PolicyCreateInput = {
@@ -11941,6 +12409,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
@@ -11973,6 +12443,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -12001,6 +12473,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
@@ -12033,6 +12507,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12063,6 +12539,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -12091,6 +12569,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12121,6 +12601,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12435,52 +12917,181 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type EnumRecoveryActionTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryActionType | EnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel> | $Enums.RecoveryActionType | null
+  }
+
+  export type EnumRecoveryCaseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryCaseStatus | EnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRecoveryCaseStatusFilter<$PrismaModel> | $Enums.RecoveryCaseStatus
+  }
+
   export type RecoveryActionListRelationFilter = {
     every?: RecoveryActionWhereInput
     some?: RecoveryActionWhereInput
     none?: RecoveryActionWhereInput
   }
 
+  export type AuditLogListRelationFilter = {
+    every?: AuditLogWhereInput
+    some?: AuditLogWhereInput
+    none?: AuditLogWhereInput
+  }
+
+  export type CustomerNullableScalarRelationFilter = {
+    is?: CustomerWhereInput | null
+    isNot?: CustomerWhereInput | null
+  }
+
   export type RecoveryActionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AuditLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type RecoveryCaseCountOrderByAggregateInput = {
     id?: SortOrder
-    status?: SortOrder
-    amount?: SortOrder
-    customerId?: SortOrder
     paymentId?: SortOrder
+    diagnosis?: SortOrder
+    confidence?: SortOrder
+    naturalRecoveryProbability?: SortOrder
+    interventionRecoveryProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
+    recommendedAction?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrder
   }
 
   export type RecoveryCaseAvgOrderByAggregateInput = {
-    amount?: SortOrder
+    confidence?: SortOrder
+    naturalRecoveryProbability?: SortOrder
+    interventionRecoveryProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
   }
 
   export type RecoveryCaseMaxOrderByAggregateInput = {
     id?: SortOrder
-    status?: SortOrder
-    amount?: SortOrder
-    customerId?: SortOrder
     paymentId?: SortOrder
+    diagnosis?: SortOrder
+    confidence?: SortOrder
+    naturalRecoveryProbability?: SortOrder
+    interventionRecoveryProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
+    recommendedAction?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrder
   }
 
   export type RecoveryCaseMinOrderByAggregateInput = {
     id?: SortOrder
-    status?: SortOrder
-    amount?: SortOrder
-    customerId?: SortOrder
     paymentId?: SortOrder
+    diagnosis?: SortOrder
+    confidence?: SortOrder
+    naturalRecoveryProbability?: SortOrder
+    interventionRecoveryProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
+    recommendedAction?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrder
   }
 
   export type RecoveryCaseSumOrderByAggregateInput = {
-    amount?: SortOrder
+    confidence?: SortOrder
+    naturalRecoveryProbability?: SortOrder
+    interventionRecoveryProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRecoveryActionTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryActionType | EnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRecoveryActionTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.RecoveryActionType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRecoveryCaseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryCaseStatus | EnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRecoveryCaseStatusWithAggregatesFilter<$PrismaModel> | $Enums.RecoveryCaseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRecoveryCaseStatusFilter<$PrismaModel>
+    _max?: NestedEnumRecoveryCaseStatusFilter<$PrismaModel>
   }
 
   export type RecoveryCaseScalarRelationFilter = {
@@ -12512,23 +13123,31 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type RecoveryCaseNullableScalarRelationFilter = {
+    is?: RecoveryCaseWhereInput | null
+    isNot?: RecoveryCaseWhereInput | null
+  }
+
   export type AuditLogCountOrderByAggregateInput = {
     id?: SortOrder
     action?: SortOrder
     details?: SortOrder
     createdAt?: SortOrder
+    recoveryCaseId?: SortOrder
   }
 
   export type AuditLogMaxOrderByAggregateInput = {
     id?: SortOrder
     action?: SortOrder
     createdAt?: SortOrder
+    recoveryCaseId?: SortOrder
   }
 
   export type AuditLogMinOrderByAggregateInput = {
     id?: SortOrder
     action?: SortOrder
     createdAt?: SortOrder
+    recoveryCaseId?: SortOrder
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -12640,17 +13259,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -12689,6 +13297,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
     diagnosedAt?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12704,6 +13314,8 @@ export namespace Prisma {
     diagnosisConfidence?: SortOrder
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
   }
 
   export type OpportunityMaxOrderByAggregateInput = {
@@ -12733,6 +13345,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
     diagnosedAt?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12763,6 +13377,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
     diagnosedAt?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12778,6 +13394,8 @@ export namespace Prisma {
     diagnosisConfidence?: SortOrder
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
+    incrementalLift?: SortOrder
+    expectedIncrementalRevenue?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12810,22 +13428,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13132,12 +13734,6 @@ export namespace Prisma {
     update?: XOR<XOR<PaymentUpdateToOneWithWhereWithoutEventsInput, PaymentUpdateWithoutEventsInput>, PaymentUncheckedUpdateWithoutEventsInput>
   }
 
-  export type CustomerCreateNestedOneWithoutRecoveryCasesInput = {
-    create?: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutRecoveryCasesInput
-    connect?: CustomerWhereUniqueInput
-  }
-
   export type PaymentCreateNestedOneWithoutRecoveryCasesInput = {
     create?: XOR<PaymentCreateWithoutRecoveryCasesInput, PaymentUncheckedCreateWithoutRecoveryCasesInput>
     connectOrCreate?: PaymentCreateOrConnectWithoutRecoveryCasesInput
@@ -13151,6 +13747,19 @@ export namespace Prisma {
     connect?: RecoveryActionWhereUniqueInput | RecoveryActionWhereUniqueInput[]
   }
 
+  export type AuditLogCreateNestedManyWithoutRecoveryCaseInput = {
+    create?: XOR<AuditLogCreateWithoutRecoveryCaseInput, AuditLogUncheckedCreateWithoutRecoveryCaseInput> | AuditLogCreateWithoutRecoveryCaseInput[] | AuditLogUncheckedCreateWithoutRecoveryCaseInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutRecoveryCaseInput | AuditLogCreateOrConnectWithoutRecoveryCaseInput[]
+    createMany?: AuditLogCreateManyRecoveryCaseInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type CustomerCreateNestedOneWithoutRecoveryCasesInput = {
+    create?: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutRecoveryCasesInput
+    connect?: CustomerWhereUniqueInput
+  }
+
   export type RecoveryActionUncheckedCreateNestedManyWithoutRecoveryCaseInput = {
     create?: XOR<RecoveryActionCreateWithoutRecoveryCaseInput, RecoveryActionUncheckedCreateWithoutRecoveryCaseInput> | RecoveryActionCreateWithoutRecoveryCaseInput[] | RecoveryActionUncheckedCreateWithoutRecoveryCaseInput[]
     connectOrCreate?: RecoveryActionCreateOrConnectWithoutRecoveryCaseInput | RecoveryActionCreateOrConnectWithoutRecoveryCaseInput[]
@@ -13158,12 +13767,35 @@ export namespace Prisma {
     connect?: RecoveryActionWhereUniqueInput | RecoveryActionWhereUniqueInput[]
   }
 
-  export type CustomerUpdateOneRequiredWithoutRecoveryCasesNestedInput = {
-    create?: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutRecoveryCasesInput
-    upsert?: CustomerUpsertWithoutRecoveryCasesInput
-    connect?: CustomerWhereUniqueInput
-    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutRecoveryCasesInput, CustomerUpdateWithoutRecoveryCasesInput>, CustomerUncheckedUpdateWithoutRecoveryCasesInput>
+  export type AuditLogUncheckedCreateNestedManyWithoutRecoveryCaseInput = {
+    create?: XOR<AuditLogCreateWithoutRecoveryCaseInput, AuditLogUncheckedCreateWithoutRecoveryCaseInput> | AuditLogCreateWithoutRecoveryCaseInput[] | AuditLogUncheckedCreateWithoutRecoveryCaseInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutRecoveryCaseInput | AuditLogCreateOrConnectWithoutRecoveryCaseInput[]
+    createMany?: AuditLogCreateManyRecoveryCaseInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableEnumRecoveryActionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RecoveryActionType | null
+  }
+
+  export type EnumRecoveryCaseStatusFieldUpdateOperationsInput = {
+    set?: $Enums.RecoveryCaseStatus
   }
 
   export type PaymentUpdateOneRequiredWithoutRecoveryCasesNestedInput = {
@@ -13188,6 +13820,30 @@ export namespace Prisma {
     deleteMany?: RecoveryActionScalarWhereInput | RecoveryActionScalarWhereInput[]
   }
 
+  export type AuditLogUpdateManyWithoutRecoveryCaseNestedInput = {
+    create?: XOR<AuditLogCreateWithoutRecoveryCaseInput, AuditLogUncheckedCreateWithoutRecoveryCaseInput> | AuditLogCreateWithoutRecoveryCaseInput[] | AuditLogUncheckedCreateWithoutRecoveryCaseInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutRecoveryCaseInput | AuditLogCreateOrConnectWithoutRecoveryCaseInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutRecoveryCaseInput | AuditLogUpsertWithWhereUniqueWithoutRecoveryCaseInput[]
+    createMany?: AuditLogCreateManyRecoveryCaseInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutRecoveryCaseInput | AuditLogUpdateWithWhereUniqueWithoutRecoveryCaseInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutRecoveryCaseInput | AuditLogUpdateManyWithWhereWithoutRecoveryCaseInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type CustomerUpdateOneWithoutRecoveryCasesNestedInput = {
+    create?: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutRecoveryCasesInput
+    upsert?: CustomerUpsertWithoutRecoveryCasesInput
+    disconnect?: CustomerWhereInput | boolean
+    delete?: CustomerWhereInput | boolean
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutRecoveryCasesInput, CustomerUpdateWithoutRecoveryCasesInput>, CustomerUncheckedUpdateWithoutRecoveryCasesInput>
+  }
+
   export type RecoveryActionUncheckedUpdateManyWithoutRecoveryCaseNestedInput = {
     create?: XOR<RecoveryActionCreateWithoutRecoveryCaseInput, RecoveryActionUncheckedCreateWithoutRecoveryCaseInput> | RecoveryActionCreateWithoutRecoveryCaseInput[] | RecoveryActionUncheckedCreateWithoutRecoveryCaseInput[]
     connectOrCreate?: RecoveryActionCreateOrConnectWithoutRecoveryCaseInput | RecoveryActionCreateOrConnectWithoutRecoveryCaseInput[]
@@ -13202,6 +13858,20 @@ export namespace Prisma {
     deleteMany?: RecoveryActionScalarWhereInput | RecoveryActionScalarWhereInput[]
   }
 
+  export type AuditLogUncheckedUpdateManyWithoutRecoveryCaseNestedInput = {
+    create?: XOR<AuditLogCreateWithoutRecoveryCaseInput, AuditLogUncheckedCreateWithoutRecoveryCaseInput> | AuditLogCreateWithoutRecoveryCaseInput[] | AuditLogUncheckedCreateWithoutRecoveryCaseInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutRecoveryCaseInput | AuditLogCreateOrConnectWithoutRecoveryCaseInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutRecoveryCaseInput | AuditLogUpsertWithWhereUniqueWithoutRecoveryCaseInput[]
+    createMany?: AuditLogCreateManyRecoveryCaseInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutRecoveryCaseInput | AuditLogUpdateWithWhereUniqueWithoutRecoveryCaseInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutRecoveryCaseInput | AuditLogUpdateManyWithWhereWithoutRecoveryCaseInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
   export type RecoveryCaseCreateNestedOneWithoutActionsInput = {
     create?: XOR<RecoveryCaseCreateWithoutActionsInput, RecoveryCaseUncheckedCreateWithoutActionsInput>
     connectOrCreate?: RecoveryCaseCreateOrConnectWithoutActionsInput
@@ -13214,6 +13884,22 @@ export namespace Prisma {
     upsert?: RecoveryCaseUpsertWithoutActionsInput
     connect?: RecoveryCaseWhereUniqueInput
     update?: XOR<XOR<RecoveryCaseUpdateToOneWithWhereWithoutActionsInput, RecoveryCaseUpdateWithoutActionsInput>, RecoveryCaseUncheckedUpdateWithoutActionsInput>
+  }
+
+  export type RecoveryCaseCreateNestedOneWithoutAuditLogsInput = {
+    create?: XOR<RecoveryCaseCreateWithoutAuditLogsInput, RecoveryCaseUncheckedCreateWithoutAuditLogsInput>
+    connectOrCreate?: RecoveryCaseCreateOrConnectWithoutAuditLogsInput
+    connect?: RecoveryCaseWhereUniqueInput
+  }
+
+  export type RecoveryCaseUpdateOneWithoutAuditLogsNestedInput = {
+    create?: XOR<RecoveryCaseCreateWithoutAuditLogsInput, RecoveryCaseUncheckedCreateWithoutAuditLogsInput>
+    connectOrCreate?: RecoveryCaseCreateOrConnectWithoutAuditLogsInput
+    upsert?: RecoveryCaseUpsertWithoutAuditLogsInput
+    disconnect?: RecoveryCaseWhereInput | boolean
+    delete?: RecoveryCaseWhereInput | boolean
+    connect?: RecoveryCaseWhereUniqueInput
+    update?: XOR<XOR<RecoveryCaseUpdateToOneWithWhereWithoutAuditLogsInput, RecoveryCaseUpdateWithoutAuditLogsInput>, RecoveryCaseUncheckedUpdateWithoutAuditLogsInput>
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -13241,14 +13927,6 @@ export namespace Prisma {
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
@@ -13435,6 +14113,94 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryActionType | EnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel> | $Enums.RecoveryActionType | null
+  }
+
+  export type NestedEnumRecoveryCaseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryCaseStatus | EnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRecoveryCaseStatusFilter<$PrismaModel> | $Enums.RecoveryCaseStatus
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRecoveryActionTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryActionType | EnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.RecoveryActionType[] | ListEnumRecoveryActionTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRecoveryActionTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.RecoveryActionType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumRecoveryActionTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRecoveryCaseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecoveryCaseStatus | EnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RecoveryCaseStatus[] | ListEnumRecoveryCaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRecoveryCaseStatusWithAggregatesFilter<$PrismaModel> | $Enums.RecoveryCaseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRecoveryCaseStatusFilter<$PrismaModel>
+    _max?: NestedEnumRecoveryCaseStatusFilter<$PrismaModel>
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -13469,17 +14235,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -13523,22 +14278,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13589,22 +14328,36 @@ export namespace Prisma {
 
   export type RecoveryCaseCreateWithoutCustomerInput = {
     id?: string
-    status: string
-    amount: number
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     payment: PaymentCreateNestedOneWithoutRecoveryCasesInput
     actions?: RecoveryActionCreateNestedManyWithoutRecoveryCaseInput
+    auditLogs?: AuditLogCreateNestedManyWithoutRecoveryCaseInput
   }
 
   export type RecoveryCaseUncheckedCreateWithoutCustomerInput = {
     id?: string
-    status: string
-    amount: number
     paymentId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     actions?: RecoveryActionUncheckedCreateNestedManyWithoutRecoveryCaseInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutRecoveryCaseInput
   }
 
   export type RecoveryCaseCreateOrConnectWithoutCustomerInput = {
@@ -13642,6 +14395,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
   }
@@ -13672,6 +14427,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -13734,12 +14491,18 @@ export namespace Prisma {
     OR?: RecoveryCaseScalarWhereInput[]
     NOT?: RecoveryCaseScalarWhereInput | RecoveryCaseScalarWhereInput[]
     id?: StringFilter<"RecoveryCase"> | string
-    status?: StringFilter<"RecoveryCase"> | string
-    amount?: FloatFilter<"RecoveryCase"> | number
-    customerId?: StringFilter<"RecoveryCase"> | string
     paymentId?: StringFilter<"RecoveryCase"> | string
+    diagnosis?: StringNullableFilter<"RecoveryCase"> | string | null
+    confidence?: FloatNullableFilter<"RecoveryCase"> | number | null
+    naturalRecoveryProbability?: FloatNullableFilter<"RecoveryCase"> | number | null
+    interventionRecoveryProbability?: FloatNullableFilter<"RecoveryCase"> | number | null
+    incrementalLift?: FloatNullableFilter<"RecoveryCase"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableFilter<"RecoveryCase"> | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: EnumRecoveryActionTypeNullableFilter<"RecoveryCase"> | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFilter<"RecoveryCase"> | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFilter<"RecoveryCase"> | Date | string
     updatedAt?: DateTimeFilter<"RecoveryCase"> | Date | string
+    customerId?: StringNullableFilter<"RecoveryCase"> | string | null
   }
 
   export type OpportunityUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -13788,6 +14551,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
     diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
+    incrementalLift?: FloatNullableFilter<"Opportunity"> | number | null
+    expectedIncrementalRevenue?: DecimalNullableFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
   }
 
@@ -13844,22 +14609,36 @@ export namespace Prisma {
 
   export type RecoveryCaseCreateWithoutPaymentInput = {
     id?: string
-    status: string
-    amount: number
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    customer: CustomerCreateNestedOneWithoutRecoveryCasesInput
     actions?: RecoveryActionCreateNestedManyWithoutRecoveryCaseInput
+    auditLogs?: AuditLogCreateNestedManyWithoutRecoveryCaseInput
+    customer?: CustomerCreateNestedOneWithoutRecoveryCasesInput
   }
 
   export type RecoveryCaseUncheckedCreateWithoutPaymentInput = {
     id?: string
-    status: string
-    amount: number
-    customerId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
     actions?: RecoveryActionUncheckedCreateNestedManyWithoutRecoveryCaseInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutRecoveryCaseInput
   }
 
   export type RecoveryCaseCreateOrConnectWithoutPaymentInput = {
@@ -13897,6 +14676,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
   }
@@ -13927,6 +14708,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -14046,6 +14829,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
   }
@@ -14076,6 +14861,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14139,31 +14926,6 @@ export namespace Prisma {
     opportunity?: OpportunityUncheckedUpdateOneWithoutPaymentNestedInput
   }
 
-  export type CustomerCreateWithoutRecoveryCasesInput = {
-    id?: string
-    email: string
-    name?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    payments?: PaymentCreateNestedManyWithoutCustomerInput
-    opportunities?: OpportunityCreateNestedManyWithoutCustomerInput
-  }
-
-  export type CustomerUncheckedCreateWithoutRecoveryCasesInput = {
-    id?: string
-    email: string
-    name?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
-    opportunities?: OpportunityUncheckedCreateNestedManyWithoutCustomerInput
-  }
-
-  export type CustomerCreateOrConnectWithoutRecoveryCasesInput = {
-    where: CustomerWhereUniqueInput
-    create: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
-  }
-
   export type PaymentCreateWithoutRecoveryCasesInput = {
     id?: string
     amount: number
@@ -14215,35 +14977,53 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CustomerUpsertWithoutRecoveryCasesInput = {
-    update: XOR<CustomerUpdateWithoutRecoveryCasesInput, CustomerUncheckedUpdateWithoutRecoveryCasesInput>
+  export type AuditLogCreateWithoutRecoveryCaseInput = {
+    id?: string
+    action: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUncheckedCreateWithoutRecoveryCaseInput = {
+    id?: string
+    action: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogCreateOrConnectWithoutRecoveryCaseInput = {
+    where: AuditLogWhereUniqueInput
+    create: XOR<AuditLogCreateWithoutRecoveryCaseInput, AuditLogUncheckedCreateWithoutRecoveryCaseInput>
+  }
+
+  export type AuditLogCreateManyRecoveryCaseInputEnvelope = {
+    data: AuditLogCreateManyRecoveryCaseInput | AuditLogCreateManyRecoveryCaseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerCreateWithoutRecoveryCasesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: PaymentCreateNestedManyWithoutCustomerInput
+    opportunities?: OpportunityCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutRecoveryCasesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
+    opportunities?: OpportunityUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutRecoveryCasesInput = {
+    where: CustomerWhereUniqueInput
     create: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
-    where?: CustomerWhereInput
-  }
-
-  export type CustomerUpdateToOneWithWhereWithoutRecoveryCasesInput = {
-    where?: CustomerWhereInput
-    data: XOR<CustomerUpdateWithoutRecoveryCasesInput, CustomerUncheckedUpdateWithoutRecoveryCasesInput>
-  }
-
-  export type CustomerUpdateWithoutRecoveryCasesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    payments?: PaymentUpdateManyWithoutCustomerNestedInput
-    opportunities?: OpportunityUpdateManyWithoutCustomerNestedInput
-  }
-
-  export type CustomerUncheckedUpdateWithoutRecoveryCasesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
-    opportunities?: OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type PaymentUpsertWithoutRecoveryCasesInput = {
@@ -14306,24 +15086,96 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RecoveryAction"> | Date | string
   }
 
+  export type AuditLogUpsertWithWhereUniqueWithoutRecoveryCaseInput = {
+    where: AuditLogWhereUniqueInput
+    update: XOR<AuditLogUpdateWithoutRecoveryCaseInput, AuditLogUncheckedUpdateWithoutRecoveryCaseInput>
+    create: XOR<AuditLogCreateWithoutRecoveryCaseInput, AuditLogUncheckedCreateWithoutRecoveryCaseInput>
+  }
+
+  export type AuditLogUpdateWithWhereUniqueWithoutRecoveryCaseInput = {
+    where: AuditLogWhereUniqueInput
+    data: XOR<AuditLogUpdateWithoutRecoveryCaseInput, AuditLogUncheckedUpdateWithoutRecoveryCaseInput>
+  }
+
+  export type AuditLogUpdateManyWithWhereWithoutRecoveryCaseInput = {
+    where: AuditLogScalarWhereInput
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyWithoutRecoveryCaseInput>
+  }
+
+  export type AuditLogScalarWhereInput = {
+    AND?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+    OR?: AuditLogScalarWhereInput[]
+    NOT?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+    id?: StringFilter<"AuditLog"> | string
+    action?: StringFilter<"AuditLog"> | string
+    details?: JsonNullableFilter<"AuditLog">
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    recoveryCaseId?: StringNullableFilter<"AuditLog"> | string | null
+  }
+
+  export type CustomerUpsertWithoutRecoveryCasesInput = {
+    update: XOR<CustomerUpdateWithoutRecoveryCasesInput, CustomerUncheckedUpdateWithoutRecoveryCasesInput>
+    create: XOR<CustomerCreateWithoutRecoveryCasesInput, CustomerUncheckedCreateWithoutRecoveryCasesInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutRecoveryCasesInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutRecoveryCasesInput, CustomerUncheckedUpdateWithoutRecoveryCasesInput>
+  }
+
+  export type CustomerUpdateWithoutRecoveryCasesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PaymentUpdateManyWithoutCustomerNestedInput
+    opportunities?: OpportunityUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutRecoveryCasesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    opportunities?: OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
   export type RecoveryCaseCreateWithoutActionsInput = {
     id?: string
-    status: string
-    amount: number
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    customer: CustomerCreateNestedOneWithoutRecoveryCasesInput
     payment: PaymentCreateNestedOneWithoutRecoveryCasesInput
+    auditLogs?: AuditLogCreateNestedManyWithoutRecoveryCaseInput
+    customer?: CustomerCreateNestedOneWithoutRecoveryCasesInput
   }
 
   export type RecoveryCaseUncheckedCreateWithoutActionsInput = {
     id?: string
-    status: string
-    amount: number
-    customerId: string
     paymentId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutRecoveryCaseInput
   }
 
   export type RecoveryCaseCreateOrConnectWithoutActionsInput = {
@@ -14344,22 +15196,120 @@ export namespace Prisma {
 
   export type RecoveryCaseUpdateWithoutActionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customer?: CustomerUpdateOneRequiredWithoutRecoveryCasesNestedInput
     payment?: PaymentUpdateOneRequiredWithoutRecoveryCasesNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutRecoveryCaseNestedInput
+    customer?: CustomerUpdateOneWithoutRecoveryCasesNestedInput
   }
 
   export type RecoveryCaseUncheckedUpdateWithoutActionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    customerId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutRecoveryCaseNestedInput
+  }
+
+  export type RecoveryCaseCreateWithoutAuditLogsInput = {
+    id?: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment: PaymentCreateNestedOneWithoutRecoveryCasesInput
+    actions?: RecoveryActionCreateNestedManyWithoutRecoveryCaseInput
+    customer?: CustomerCreateNestedOneWithoutRecoveryCasesInput
+  }
+
+  export type RecoveryCaseUncheckedCreateWithoutAuditLogsInput = {
+    id?: string
+    paymentId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    actions?: RecoveryActionUncheckedCreateNestedManyWithoutRecoveryCaseInput
+  }
+
+  export type RecoveryCaseCreateOrConnectWithoutAuditLogsInput = {
+    where: RecoveryCaseWhereUniqueInput
+    create: XOR<RecoveryCaseCreateWithoutAuditLogsInput, RecoveryCaseUncheckedCreateWithoutAuditLogsInput>
+  }
+
+  export type RecoveryCaseUpsertWithoutAuditLogsInput = {
+    update: XOR<RecoveryCaseUpdateWithoutAuditLogsInput, RecoveryCaseUncheckedUpdateWithoutAuditLogsInput>
+    create: XOR<RecoveryCaseCreateWithoutAuditLogsInput, RecoveryCaseUncheckedCreateWithoutAuditLogsInput>
+    where?: RecoveryCaseWhereInput
+  }
+
+  export type RecoveryCaseUpdateToOneWithWhereWithoutAuditLogsInput = {
+    where?: RecoveryCaseWhereInput
+    data: XOR<RecoveryCaseUpdateWithoutAuditLogsInput, RecoveryCaseUncheckedUpdateWithoutAuditLogsInput>
+  }
+
+  export type RecoveryCaseUpdateWithoutAuditLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUpdateOneRequiredWithoutRecoveryCasesNestedInput
+    actions?: RecoveryActionUpdateManyWithoutRecoveryCaseNestedInput
+    customer?: CustomerUpdateOneWithoutRecoveryCasesNestedInput
+  }
+
+  export type RecoveryCaseUncheckedUpdateWithoutAuditLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    actions?: RecoveryActionUncheckedUpdateManyWithoutRecoveryCaseNestedInput
   }
 
   export type PaymentCreateWithoutOpportunityInput = {
@@ -14488,9 +15438,15 @@ export namespace Prisma {
 
   export type RecoveryCaseCreateManyCustomerInput = {
     id?: string
-    status: string
-    amount: number
     paymentId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14521,6 +15477,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
     diagnosedAt?: Date | string | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -14556,29 +15514,49 @@ export namespace Prisma {
 
   export type RecoveryCaseUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutRecoveryCasesNestedInput
     actions?: RecoveryActionUpdateManyWithoutRecoveryCaseNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutRecoveryCaseNestedInput
   }
 
   export type RecoveryCaseUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
     paymentId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     actions?: RecoveryActionUncheckedUpdateManyWithoutRecoveryCaseNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutRecoveryCaseNestedInput
   }
 
   export type RecoveryCaseUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
     paymentId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14608,6 +15586,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
   }
@@ -14638,6 +15618,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14667,6 +15649,8 @@ export namespace Prisma {
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14680,11 +15664,17 @@ export namespace Prisma {
 
   export type RecoveryCaseCreateManyPaymentInput = {
     id?: string
-    status: string
-    amount: number
-    customerId: string
+    diagnosis?: string | null
+    confidence?: number | null
+    naturalRecoveryProbability?: number | null
+    interventionRecoveryProbability?: number | null
+    incrementalLift?: number | null
+    expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: $Enums.RecoveryActionType | null
+    status?: $Enums.RecoveryCaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
   }
 
   export type PaymentEventUpdateWithoutPaymentInput = {
@@ -14713,37 +15703,64 @@ export namespace Prisma {
 
   export type RecoveryCaseUpdateWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customer?: CustomerUpdateOneRequiredWithoutRecoveryCasesNestedInput
     actions?: RecoveryActionUpdateManyWithoutRecoveryCaseNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutRecoveryCaseNestedInput
+    customer?: CustomerUpdateOneWithoutRecoveryCasesNestedInput
   }
 
   export type RecoveryCaseUncheckedUpdateWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    customerId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     actions?: RecoveryActionUncheckedUpdateManyWithoutRecoveryCaseNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutRecoveryCaseNestedInput
   }
 
   export type RecoveryCaseUncheckedUpdateManyWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    customerId?: StringFieldUpdateOperationsInput | string
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    naturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
+    incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
+    expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recommendedAction?: NullableEnumRecoveryActionTypeFieldUpdateOperationsInput | $Enums.RecoveryActionType | null
+    status?: EnumRecoveryCaseStatusFieldUpdateOperationsInput | $Enums.RecoveryCaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RecoveryActionCreateManyRecoveryCaseInput = {
     id?: string
     actionType: string
     status: string
+    createdAt?: Date | string
+  }
+
+  export type AuditLogCreateManyRecoveryCaseInput = {
+    id?: string
+    action: string
+    details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -14765,6 +15782,27 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     actionType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUpdateWithoutRecoveryCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateWithoutRecoveryCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyWithoutRecoveryCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
