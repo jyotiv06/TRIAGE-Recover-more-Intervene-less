@@ -9545,6 +9545,7 @@ export namespace Prisma {
     diagnosedAt: Date | null
     incrementalLift: number | null
     expectedIncrementalRevenue: Decimal | null
+    selectionReason: string | null
     createdAt: Date | null
   }
 
@@ -9577,6 +9578,7 @@ export namespace Prisma {
     diagnosedAt: Date | null
     incrementalLift: number | null
     expectedIncrementalRevenue: Decimal | null
+    selectionReason: string | null
     createdAt: Date | null
   }
 
@@ -9609,6 +9611,7 @@ export namespace Prisma {
     diagnosedAt: number
     incrementalLift: number
     expectedIncrementalRevenue: number
+    selectionReason: number
     createdAt: number
     _all: number
   }
@@ -9675,6 +9678,7 @@ export namespace Prisma {
     diagnosedAt?: true
     incrementalLift?: true
     expectedIncrementalRevenue?: true
+    selectionReason?: true
     createdAt?: true
   }
 
@@ -9707,6 +9711,7 @@ export namespace Prisma {
     diagnosedAt?: true
     incrementalLift?: true
     expectedIncrementalRevenue?: true
+    selectionReason?: true
     createdAt?: true
   }
 
@@ -9739,6 +9744,7 @@ export namespace Prisma {
     diagnosedAt?: true
     incrementalLift?: true
     expectedIncrementalRevenue?: true
+    selectionReason?: true
     createdAt?: true
     _all?: true
   }
@@ -9858,6 +9864,7 @@ export namespace Prisma {
     diagnosedAt: Date | null
     incrementalLift: number | null
     expectedIncrementalRevenue: Decimal | null
+    selectionReason: string | null
     createdAt: Date
     _count: OpportunityCountAggregateOutputType | null
     _avg: OpportunityAvgAggregateOutputType | null
@@ -9909,6 +9916,7 @@ export namespace Prisma {
     diagnosedAt?: boolean
     incrementalLift?: boolean
     expectedIncrementalRevenue?: boolean
+    selectionReason?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9943,6 +9951,7 @@ export namespace Prisma {
     diagnosedAt?: boolean
     incrementalLift?: boolean
     expectedIncrementalRevenue?: boolean
+    selectionReason?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9977,6 +9986,7 @@ export namespace Prisma {
     diagnosedAt?: boolean
     incrementalLift?: boolean
     expectedIncrementalRevenue?: boolean
+    selectionReason?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -10011,10 +10021,11 @@ export namespace Prisma {
     diagnosedAt?: boolean
     incrementalLift?: boolean
     expectedIncrementalRevenue?: boolean
+    selectionReason?: boolean
     createdAt?: boolean
   }
 
-  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "createdAt", ExtArgs["result"]["opportunity"]>
+  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "selectionReason" | "createdAt", ExtArgs["result"]["opportunity"]>
   export type OpportunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -10063,6 +10074,7 @@ export namespace Prisma {
       diagnosedAt: Date | null
       incrementalLift: number | null
       expectedIncrementalRevenue: Prisma.Decimal | null
+      selectionReason: string | null
       createdAt: Date
     }, ExtArgs["result"]["opportunity"]>
     composites: {}
@@ -10517,6 +10529,7 @@ export namespace Prisma {
     readonly diagnosedAt: FieldRef<"Opportunity", 'DateTime'>
     readonly incrementalLift: FieldRef<"Opportunity", 'Float'>
     readonly expectedIncrementalRevenue: FieldRef<"Opportunity", 'Decimal'>
+    readonly selectionReason: FieldRef<"Opportunity", 'String'>
     readonly createdAt: FieldRef<"Opportunity", 'DateTime'>
   }
     
@@ -11063,6 +11076,7 @@ export namespace Prisma {
     diagnosedAt: 'diagnosedAt',
     incrementalLift: 'incrementalLift',
     expectedIncrementalRevenue: 'expectedIncrementalRevenue',
+    selectionReason: 'selectionReason',
     createdAt: 'createdAt'
   };
 
@@ -11741,6 +11755,7 @@ export namespace Prisma {
     diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
     incrementalLift?: FloatNullableFilter<"Opportunity"> | number | null
     expectedIncrementalRevenue?: DecimalNullableFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: StringNullableFilter<"Opportunity"> | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11775,6 +11790,7 @@ export namespace Prisma {
     diagnosedAt?: SortOrderInput | SortOrder
     incrementalLift?: SortOrderInput | SortOrder
     expectedIncrementalRevenue?: SortOrderInput | SortOrder
+    selectionReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     payment?: PaymentOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
@@ -11812,6 +11828,7 @@ export namespace Prisma {
     diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
     incrementalLift?: FloatNullableFilter<"Opportunity"> | number | null
     expectedIncrementalRevenue?: DecimalNullableFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: StringNullableFilter<"Opportunity"> | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11846,6 +11863,7 @@ export namespace Prisma {
     diagnosedAt?: SortOrderInput | SortOrder
     incrementalLift?: SortOrderInput | SortOrder
     expectedIncrementalRevenue?: SortOrderInput | SortOrder
+    selectionReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OpportunityCountOrderByAggregateInput
     _avg?: OpportunityAvgOrderByAggregateInput
@@ -11886,6 +11904,7 @@ export namespace Prisma {
     diagnosedAt?: DateTimeNullableWithAggregatesFilter<"Opportunity"> | Date | string | null
     incrementalLift?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
     expectedIncrementalRevenue?: DecimalNullableWithAggregatesFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
   }
 
@@ -12411,6 +12430,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
@@ -12445,6 +12465,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
   }
 
@@ -12475,6 +12496,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
@@ -12509,6 +12531,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12541,6 +12564,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
   }
 
@@ -12571,6 +12595,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12603,6 +12628,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13299,6 +13325,7 @@ export namespace Prisma {
     diagnosedAt?: SortOrder
     incrementalLift?: SortOrder
     expectedIncrementalRevenue?: SortOrder
+    selectionReason?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13347,6 +13374,7 @@ export namespace Prisma {
     diagnosedAt?: SortOrder
     incrementalLift?: SortOrder
     expectedIncrementalRevenue?: SortOrder
+    selectionReason?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13379,6 +13407,7 @@ export namespace Prisma {
     diagnosedAt?: SortOrder
     incrementalLift?: SortOrder
     expectedIncrementalRevenue?: SortOrder
+    selectionReason?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -14397,6 +14426,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
   }
@@ -14429,6 +14459,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
   }
 
@@ -14553,6 +14584,7 @@ export namespace Prisma {
     diagnosedAt?: DateTimeNullableFilter<"Opportunity"> | Date | string | null
     incrementalLift?: FloatNullableFilter<"Opportunity"> | number | null
     expectedIncrementalRevenue?: DecimalNullableFilter<"Opportunity"> | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: StringNullableFilter<"Opportunity"> | string | null
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
   }
 
@@ -14678,6 +14710,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
   }
@@ -14710,6 +14743,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
   }
 
@@ -14831,6 +14865,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
   }
@@ -14863,6 +14898,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15479,6 +15515,7 @@ export namespace Prisma {
     diagnosedAt?: Date | string | null
     incrementalLift?: number | null
     expectedIncrementalRevenue?: Decimal | DecimalJsLike | number | string | null
+    selectionReason?: string | null
     createdAt?: Date | string
   }
 
@@ -15588,6 +15625,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
   }
@@ -15620,6 +15658,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15651,6 +15690,7 @@ export namespace Prisma {
     diagnosedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     incrementalLift?: NullableFloatFieldUpdateOperationsInput | number | null
     expectedIncrementalRevenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    selectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

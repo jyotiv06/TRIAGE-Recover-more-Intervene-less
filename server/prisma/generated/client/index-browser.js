@@ -217,6 +217,7 @@ exports.Prisma.OpportunityScalarFieldEnum = {
   diagnosedAt: 'diagnosedAt',
   incrementalLift: 'incrementalLift',
   expectedIncrementalRevenue: 'expectedIncrementalRevenue',
+  selectionReason: 'selectionReason',
   createdAt: 'createdAt'
 };
 

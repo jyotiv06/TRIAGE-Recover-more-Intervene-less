@@ -136,11 +136,9 @@ model Opportunity {
   lateAuthorization    Boolean
   alreadyRecovered     Boolean
 
-  // ground truth, evaluation-only — never fed to the AI as an input
   naturalRecoveryProbability Float
   recoveredNaturally         Boolean
 
-  // filled in later by Piece 4 (AI) and Piece 5 (optimizer)
   aiEstimatedLift         Float?
   aiRecommendedAction     String?
   selectedForIntervention Boolean @default(false)
@@ -153,6 +151,8 @@ model Opportunity {
 
   incrementalLift            Float?
   expectedIncrementalRevenue Decimal? @db.Decimal(12, 2)
+
+  selectionReason         String?
 
   createdAt DateTime @default(now())
 }
