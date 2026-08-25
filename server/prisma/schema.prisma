@@ -154,5 +154,9 @@ model Opportunity {
 
   selectionReason         String?
 
+  policyAllowed  Boolean?
+  policyReason   String?
+  policyEscalate Boolean  @default(false)
+
   createdAt DateTime @default(now())
 }
