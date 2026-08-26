@@ -1,9 +1,13 @@
+require('dotenv').config();
+
 const { diagnoseBatch } = require('../services/aiDiagnosis');
 const { PrismaClient } = require('../prisma/generated/client');
+
 const prisma = new PrismaClient();
 
 async function main() {
   const count = Number(process.argv[2]) || 20;
+
   await diagnoseBatch(count);
 
   const samples = await prisma.opportunity.findMany({
@@ -17,14 +21,19 @@ async function main() {
     console.log(`Payment: ₹${s.amount}`);
     console.log(`Diagnosis: ${s.diagnosis}`);
     console.log(`Confidence: ${s.diagnosisConfidence}`);
-    console.log(`Natural recovery probability: ${s.aiNaturalRecoveryProbability}`);
-    console.log(`Recovery with intervention: ${s.aiRecoveryWithInterventionProbability}`);
+    console.log(
+      `Natural recovery probability: ${s.aiNaturalRecoveryProbability}`
+    );
+    console.log(
+      `Recovery with intervention: ${s.aiRecoveryWithInterventionProbability}`
+    );
   }
 
-  process.exit(0);
+  await prisma.$disconnect();
 }
 
-main().catch((e) => {
+main().catch(async (e) => {
   console.error(e);
+  await prisma.$disconnect();
   process.exit(1);
 });

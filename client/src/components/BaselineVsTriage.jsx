@@ -43,11 +43,7 @@ export default function BaselineVsRevive() {
 
   return (
     <div>
-      <h2>Baseline vs Triage</h2>
-
-      <p style={{ color: '#999', marginBottom: 20 }}>
-        Both strategies limited to {data.capacity} interventions.
-      </p>
+      <h2>Baseline vs Triage</h2><br></br>
 
       <table
         style={{

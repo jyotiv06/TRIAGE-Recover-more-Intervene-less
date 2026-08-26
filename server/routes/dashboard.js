@@ -154,7 +154,7 @@ router.get('/baseline-vs-revive', async (req, res) => {
       0
     );
 
-    const baselineNaturalRecovery = baselineSelected.reduce(
+    const baselineNaturalRecovery = all.reduce(
       (sum, o) =>
         sum + o.amount * o.naturalRecoveryProbability,
       0

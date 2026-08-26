@@ -3,6 +3,7 @@ import CommandCenter from './components/CommandCenter';
 import RecoveryPortfolio from './components/RecoveryPortfolio';
 import CaseDetails from './components/CaseDetails';
 import BaselineVsTriage from './components/BaselineVsTriage';
+import './App.css';
 
 const TABS = [
   { id: 'command', label: 'Command Center', component: CommandCenter },
@@ -13,35 +14,48 @@ const TABS = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('command');
+
   const Active = TABS.find((t) => t.id === activeTab).component;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f0f0f', color: '#fff', fontFamily: 'sans-serif' }}>
-      <div style={{ borderBottom: '1px solid #222', padding: '16px 24px' }}>
-        <h1 style={{ margin: 0, fontSize: 20 }}>TRIAGE — Recover More - Intervene Less</h1>
-      </div>
-      <div style={{ display: 'flex', borderBottom: '1px solid #222' }}>
-        {TABS.map((t) => (
+    <div className="app-shell">
+
+      <header className="app-header">
+        <div className="brand">
+          <div className="brand-mark">T</div>
+
+          <div>
+            <div className="brand-name">TRIAGE</div>
+            <div className="brand-subtitle">
+              Recover More - Intervene Less
+            </div>
+          </div>
+        </div>
+
+        <div className="system-status">
+          <span className="status-dot" />
+          System Operational
+        </div>
+      </header>
+
+      <nav className="nav-bar">
+        {TABS.map((tab) => (
           <button
-            key={t.id}
-            onClick={() => setActiveTab(t.id)}
-            style={{
-              padding: '12px 20px',
-              background: 'none',
-              border: 'none',
-              borderBottom: activeTab === t.id ? '2px solid #4ade80' : '2px solid transparent',
-              color: activeTab === t.id ? '#fff' : '#999',
-              cursor: 'pointer',
-              fontSize: 14,
-            }}
+            key={tab.id}
+            className={`nav-button ${
+              activeTab === tab.id ? 'active' : ''
+            }`}
+            onClick={() => setActiveTab(tab.id)}
           >
-            {t.label}
+            {tab.label}
           </button>
         ))}
-      </div>
-      <div style={{ padding: 24 }}>
+      </nav>
+
+      <main className="main-content">
         <Active />
-      </div>
+      </main>
+
     </div>
   );
 }
