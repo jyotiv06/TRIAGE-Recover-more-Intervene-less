@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { fetchBaselineVsRevive, formatINR } from '../api';
+import {
+  fetchBaselineVsRevive,
+  formatINR,
+} from '../api';
 
-export default function BaselineVsRevive() {
+export default function BaselineVsTriage() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -12,87 +15,79 @@ export default function BaselineVsRevive() {
   }, []);
 
   if (error) {
-    return <div style={{ color: '#f87171' }}>Error: {error}</div>;
+    return <div className="error-state">Error: {error}</div>;
   }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-state">
+        Loading comparison...
+      </div>
+    );
   }
 
-  const row = (label, baseline, triage, highlight) => (
-    <tr style={{ borderBottom: '1px solid #222' }}>
-      <td style={{ padding: 10, color: '#999' }}>
-        {label}
-      </td>
-
-      <td style={{ padding: 10 }}>
-        {baseline}
-      </td>
-
-      <td
-        style={{
-          padding: 10,
-          color: highlight ? '#4ade80' : '#fff',
-          fontWeight: highlight ? 700 : 400,
-        }}
-      >
-        {triage}
-      </td>
-    </tr>
-  );
-
   return (
-    <div>
-      <h2>Baseline vs Triage</h2><br></br>
+    <div className="triage-card">
+      <div className="triage-card-header">
+        <h3 className="triage-card-title">
+          Baseline vs Triage
+        </h3>
 
-      <table
-        style={{
-          width: '100%',
-          maxWidth: 600,
-          borderCollapse: 'collapse',
-        }}
-      >
-        <thead>
-          <tr
-            style={{
-              borderBottom: '1px solid #333',
-              textAlign: 'left',
-            }}
-          >
-            <th style={{ padding: 10 }}></th>
+        <div className="triage-card-subtitle">
+          Both strategies evaluated under the same
+          intervention capacity of {data.capacity}.
+        </div>
+      </div>
 
-            <th style={{ padding: 10 }}>
-              Baseline (biggest payments)
-            </th>
+      <div className="triage-table-wrapper">
+        <table className="comparison-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Baseline — Biggest Payments</th>
+              <th>Triage</th>
+            </tr>
+          </thead>
 
-            <th style={{ padding: 10 }}>
-              Triage
-            </th>
-          </tr>
-        </thead>
+          <tbody>
+            <tr>
+              <td>Expected Recovery</td>
 
-        <tbody>
-          {row(
-            'Expected Recovery',
-            formatINR(data.baseline.recovered),
-            formatINR(data.triage.recovered),
-            true
-          )}
+              <td>
+                {formatINR(data.baseline.recovered)}
+              </td>
 
-          {row(
-            'Incremental',
-            formatINR(data.baseline.incremental),
-            formatINR(data.triage.incremental),
-            true
-          )}
+              <td className="triage-column">
+                {formatINR(data.triage.recovered)}
+              </td>
+            </tr>
 
-          {row(
-            'Interventions',
-            data.baseline.interventions,
-            data.triage.interventions
-          )}
-        </tbody>
-      </table>
+            <tr>
+              <td>Incremental Revenue</td>
+
+              <td>
+                {formatINR(data.baseline.incremental)}
+              </td>
+
+              <td className="triage-column">
+                {formatINR(data.triage.incremental)}
+              </td>
+            </tr>
+
+            <tr>
+              <td>Interventions</td>
+
+              <td>
+                {data.baseline.interventions}
+              </td>
+
+              <td className="triage-column">
+                {data.triage.interventions}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

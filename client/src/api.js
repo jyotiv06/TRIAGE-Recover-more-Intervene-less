@@ -1,39 +1,47 @@
-const BASE = '/api/dashboard';
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  'http://localhost:4000';
 
-export async function fetchSummary() {
-  const res = await fetch(`${BASE}/summary`);
-  if (!res.ok) throw new Error('Failed to fetch summary');
-  return res.json();
+async function request(path) {
+  const response = await fetch(`${API_BASE}${path}`);
+
+  if (!response.ok) {
+    const body = await response.text();
+
+    throw new Error(
+      body || `Request failed: ${response.status}`
+    );
+  }
+
+  return response.json();
 }
 
-export async function fetchPortfolio() {
-  const res = await fetch(`${BASE}/portfolio`);
-  if (!res.ok) throw new Error('Failed to fetch portfolio');
-  return res.json();
+export function fetchSummary() {
+  return request('/api/dashboard/summary');
 }
 
-export async function fetchCases() {
-  const res = await fetch(`${BASE}/cases`);
-  if (!res.ok) throw new Error('Failed to fetch cases');
-  return res.json();
+export function fetchPortfolio() {
+  return request('/api/dashboard/portfolio');
 }
 
-export async function fetchCase(id) {
-  const res = await fetch(`${BASE}/case/${id}`);
-  if (!res.ok) throw new Error('Failed to fetch case');
-  return res.json();
+export function fetchCases() {
+  return request('/api/dashboard/cases');
 }
 
-export async function fetchBaselineVsRevive() {
-  const res = await fetch(`${BASE}/baseline-vs-revive`);
-  if (!res.ok) throw new Error('Failed to fetch comparison');
-  return res.json();
+export function fetchCase(id) {
+  return request(
+    `/api/dashboard/case/${encodeURIComponent(id)}`
+  );
 }
 
-export function formatINR(amount) {
+export function fetchBaselineVsRevive() {
+  return request('/api/dashboard/baseline-vs-revive');
+}
+
+export function formatINR(value) {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(Number(value) || 0);
 }

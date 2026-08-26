@@ -1,20 +1,33 @@
 import { useEffect, useState } from 'react';
 import { fetchSummary, formatINR } from '../api';
 
-function StatCard({ label, value, highlight, meta }) {
+function KpiCard({ label, value, description }) {
   return (
-    <div className={`card kpi-card ${highlight ? 'highlight' : ''}`}>
+    <div className="kpi-card">
       <div className="kpi-label">{label}</div>
+      <div className="kpi-value">{value}</div>
+      <div className="kpi-description">{description}</div>
+    </div>
+  );
+}
 
-      <div className="kpi-value">
-        {value}
+function RecoveryMetric({ label, value, max }) {
+  const percentage =
+    max > 0 ? Math.min((value / max) * 100, 100) : 0;
+
+  return (
+    <div className="metric-row">
+      <div className="metric-heading">
+        <span>{label}</span>
+        <span>{formatINR(value)}</span>
       </div>
 
-      {meta && (
-        <div className="kpi-meta">
-          {meta}
-        </div>
-      )}
+      <div className="metric-track">
+        <div
+          className="metric-fill"
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
     </div>
   );
 }
@@ -30,116 +43,189 @@ export default function CommandCenter() {
   }, []);
 
   if (error) {
-    return <div style={{ color: '#f87171' }}>Error: {error}</div>;
+    return <div className="error-state">Error: {error}</div>;
   }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div className="loading-state">Loading recovery engine...</div>;
   }
 
   return (
     <div>
-      <div className="page-header">
-        <h2 className="page-title">
-          Command Center
-        </h2>
-
-        <p className="page-description">
-          Recovery intelligence across the payment portfolio
-        </p>
-      </div>
-
       <div className="kpi-grid">
-
-        <StatCard
+        <KpiCard
           label="Revenue at Risk"
           value={formatINR(data.revenueAtRisk)}
-          meta={`${data.totalOpportunities} payment opportunities`}
+          description={`${data.totalOpportunities} payment opportunities`}
         />
 
-        <StatCard
+        <KpiCard
           label="Natural Recovery"
           value={formatINR(data.naturalRecovery)}
-          meta="Expected without intervention"
+          description="Expected without intervention"
         />
 
-        <StatCard
+        <KpiCard
           label="Triage Recovery"
           value={formatINR(data.triageRecovery)}
-          highlight
-          meta="Expected portfolio recovery"
+          description="Expected portfolio recovery"
         />
 
-        <StatCard
+        <KpiCard
           label="Incremental Revenue"
           value={formatINR(data.incrementalRevenue)}
-          highlight
-          meta="Value created by intervention"
+          description="Value created by intervention"
         />
-
       </div>
 
-      <div className="card section">
-        <div className="section-title">
-          Intervention Capacity
+      <div className="recovery-grid">
+        <div className="triage-card">
+          <div className="triage-card-header">
+            <h3 className="triage-card-title">
+              Recovery Economics
+            </h3>
+
+            <div className="triage-card-subtitle">
+              Natural recovery vs intervention-assisted recovery
+            </div>
+          </div>
+
+          <div className="recovery-bars">
+            <RecoveryMetric
+              label="Natural recovery"
+              value={data.naturalRecovery}
+              max={data.revenueAtRisk}
+            />
+
+            <RecoveryMetric
+              label="Triage recovery"
+              value={data.triageRecovery}
+              max={data.revenueAtRisk}
+            />
+
+            <RecoveryMetric
+              label="Incremental revenue"
+              value={data.incrementalRevenue}
+              max={data.revenueAtRisk}
+            />
+          </div>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: 10,
-            marginTop: 12,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 28,
-              fontWeight: 700,
-            }}
-          >
-            {data.interventionsUsed}
-          </span>
+        <div className="triage-card">
+          <div className="triage-card-header">
+            <h3 className="triage-card-title">
+              Intervention Discipline
+            </h3>
 
-          <span
-            style={{
-              color: 'var(--text-muted)',
-              fontSize: 13,
-            }}
-          >
-            interventions executed
-          </span>
+            <div className="triage-card-subtitle">
+              The system intervenes only when policy permits.
+            </div>
+          </div>
+
+          <div className="recovery-bars">
+            <div className="metric-row">
+              <div className="metric-heading">
+                <span>Total opportunities</span>
+                <span>{data.totalOpportunities}</span>
+              </div>
+            </div>
+
+            <div className="metric-row">
+              <div className="metric-heading">
+                <span>Interventions used</span>
+                <span>{data.interventionsUsed}</span>
+              </div>
+
+              <div className="metric-track">
+                <div
+                  className="metric-fill"
+                  style={{
+                    width: `${
+                      data.totalOpportunities
+                        ? (data.interventionsUsed /
+                            data.totalOpportunities) *
+                          100
+                        : 0
+                    }%`,
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="metric-row">
+              <div className="metric-heading">
+                <span>Intervention rate</span>
+                <span>
+                  {data.totalOpportunities
+                    ? (
+                        (data.interventionsUsed /
+                          data.totalOpportunities) *
+                        100
+                      ).toFixed(1)
+                    : '0.0'}
+                  %
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="triage-card">
+        <div className="triage-card-header">
+          <h3 className="triage-card-title">
+            Recovery Engine Summary
+          </h3>
+
+          <div className="triage-card-subtitle">
+            Current portfolio economics from the live database
+          </div>
         </div>
 
-        <div
-          style={{
-            marginTop: 14,
-            height: 5,
-            background: '#20252a',
-            borderRadius: 10,
-            overflow: 'hidden',
-          }}
-        >
-          <div
-            style={{
-              width: `${Math.min(
-                (data.interventionsUsed / 50) * 100,
-                100
-              )}%`,
-              height: '100%',
-              background: 'var(--green)',
-            }}
-          />
-        </div>
+        <div className="triage-table-wrapper">
+          <table className="triage-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Value</th>
+                <th>Interpretation</th>
+              </tr>
+            </thead>
 
-        <div
-          style={{
-            marginTop: 7,
-            color: 'var(--text-muted)',
-            fontSize: 11,
-          }}
-        >
-          {data.interventionsUsed} of 50 maximum daily interventions
+            <tbody>
+              <tr>
+                <td>Revenue at risk</td>
+                <td className="money">
+                  {formatINR(data.revenueAtRisk)}
+                </td>
+                <td>Gross payment value requiring recovery analysis</td>
+              </tr>
+
+              <tr>
+                <td>Natural recovery</td>
+                <td className="money">
+                  {formatINR(data.naturalRecovery)}
+                </td>
+                <td>Expected recovery without intervention</td>
+              </tr>
+
+              <tr>
+                <td>Triage recovery</td>
+                <td className="green-value">
+                  {formatINR(data.triageRecovery)}
+                </td>
+                <td>Expected recovery after intelligent intervention</td>
+              </tr>
+
+              <tr>
+                <td>Incremental revenue</td>
+                <td className="green-value">
+                  {formatINR(data.incrementalRevenue)}
+                </td>
+                <td>Additional value attributable to intervention</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
