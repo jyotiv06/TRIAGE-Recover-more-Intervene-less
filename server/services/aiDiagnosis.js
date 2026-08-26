@@ -102,9 +102,11 @@ async function diagnoseOpportunity(opportunityId) {
     where: { id: opportunity.id },
     data: {
       diagnosis: result.diagnosis,
+      diagnosisReasoning: result.reasoning,
       diagnosisConfidence: result.confidence,
       aiNaturalRecoveryProbability: result.naturalRecoveryProbability,
-      aiRecoveryWithInterventionProbability: result.recoveryWithInterventionProbability,
+      aiRecoveryWithInterventionProbability:
+        result.recoveryWithInterventionProbability,
       diagnosedAt: new Date(),
     },
   });

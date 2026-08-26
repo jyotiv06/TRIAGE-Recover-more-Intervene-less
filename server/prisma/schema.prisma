@@ -144,6 +144,7 @@ model Opportunity {
   selectedForIntervention Boolean @default(false)
 
   diagnosis                             String?
+  diagnosisReasoning                    String?
   diagnosisConfidence                   Float?
   aiNaturalRecoveryProbability          Float?
   aiRecoveryWithInterventionProbability Float?

@@ -1,8 +1,10 @@
 const express = require('express');
 const { processPaymentEvent, ValidationError } = require('./services/eventPipeline');
+const dashboardRoutes = require('./routes/dashboard');
 
 const app = express();
 app.use(express.json());
+app.use('/api/dashboard', dashboardRoutes);
 
 app.post('/webhook/razorpay', async (req, res) => {
   try {

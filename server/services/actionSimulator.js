@@ -21,14 +21,14 @@ function chooseAction(opportunity) {
 
     switch (opportunity.failureReason) {
         case 'INSUFFICIENT_FUNDS':
-            return ACTIONS.REMINDER; // nudge to retry once funds likely available
+            return ACTIONS.REMINDER; 
         case 'EXPIRED_CARD':
-            return ACTIONS.PAYMENT_LINK; // needs updated payment method
+            return ACTIONS.PAYMENT_LINK; 
         case 'BANK_DECLINE':
         case 'NETWORK_ERROR':
             return ACTIONS.RETRY;
         case 'OTHER':
-            return ACTIONS.PAYMENT_LINK; // no specific signal — safest general action
+            return ACTIONS.PAYMENT_LINK; 
         default:
             return ACTIONS.PAYMENT_LINK;
     }
