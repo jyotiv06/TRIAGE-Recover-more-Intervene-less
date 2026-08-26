@@ -221,6 +221,10 @@ exports.Prisma.OpportunityScalarFieldEnum = {
   policyAllowed: 'policyAllowed',
   policyReason: 'policyReason',
   policyEscalate: 'policyEscalate',
+  action: 'action',
+  recovered: 'recovered',
+  amountRecovered: 'amountRecovered',
+  interventionUsed: 'interventionUsed',
   createdAt: 'createdAt'
 };
 

@@ -9498,6 +9498,7 @@ export namespace Prisma {
     aiRecoveryWithInterventionProbability: number | null
     incrementalLift: number | null
     expectedIncrementalRevenue: Decimal | null
+    amountRecovered: number | null
   }
 
   export type OpportunitySumAggregateOutputType = {
@@ -9514,6 +9515,7 @@ export namespace Prisma {
     aiRecoveryWithInterventionProbability: number | null
     incrementalLift: number | null
     expectedIncrementalRevenue: Decimal | null
+    amountRecovered: number | null
   }
 
   export type OpportunityMinAggregateOutputType = {
@@ -9549,6 +9551,10 @@ export namespace Prisma {
     policyAllowed: boolean | null
     policyReason: string | null
     policyEscalate: boolean | null
+    action: string | null
+    recovered: boolean | null
+    amountRecovered: number | null
+    interventionUsed: boolean | null
     createdAt: Date | null
   }
 
@@ -9585,6 +9591,10 @@ export namespace Prisma {
     policyAllowed: boolean | null
     policyReason: string | null
     policyEscalate: boolean | null
+    action: string | null
+    recovered: boolean | null
+    amountRecovered: number | null
+    interventionUsed: boolean | null
     createdAt: Date | null
   }
 
@@ -9621,6 +9631,10 @@ export namespace Prisma {
     policyAllowed: number
     policyReason: number
     policyEscalate: number
+    action: number
+    recovered: number
+    amountRecovered: number
+    interventionUsed: number
     createdAt: number
     _all: number
   }
@@ -9640,6 +9654,7 @@ export namespace Prisma {
     aiRecoveryWithInterventionProbability?: true
     incrementalLift?: true
     expectedIncrementalRevenue?: true
+    amountRecovered?: true
   }
 
   export type OpportunitySumAggregateInputType = {
@@ -9656,6 +9671,7 @@ export namespace Prisma {
     aiRecoveryWithInterventionProbability?: true
     incrementalLift?: true
     expectedIncrementalRevenue?: true
+    amountRecovered?: true
   }
 
   export type OpportunityMinAggregateInputType = {
@@ -9691,6 +9707,10 @@ export namespace Prisma {
     policyAllowed?: true
     policyReason?: true
     policyEscalate?: true
+    action?: true
+    recovered?: true
+    amountRecovered?: true
+    interventionUsed?: true
     createdAt?: true
   }
 
@@ -9727,6 +9747,10 @@ export namespace Prisma {
     policyAllowed?: true
     policyReason?: true
     policyEscalate?: true
+    action?: true
+    recovered?: true
+    amountRecovered?: true
+    interventionUsed?: true
     createdAt?: true
   }
 
@@ -9763,6 +9787,10 @@ export namespace Prisma {
     policyAllowed?: true
     policyReason?: true
     policyEscalate?: true
+    action?: true
+    recovered?: true
+    amountRecovered?: true
+    interventionUsed?: true
     createdAt?: true
     _all?: true
   }
@@ -9886,6 +9914,10 @@ export namespace Prisma {
     policyAllowed: boolean | null
     policyReason: string | null
     policyEscalate: boolean
+    action: string | null
+    recovered: boolean | null
+    amountRecovered: number | null
+    interventionUsed: boolean
     createdAt: Date
     _count: OpportunityCountAggregateOutputType | null
     _avg: OpportunityAvgAggregateOutputType | null
@@ -9941,6 +9973,10 @@ export namespace Prisma {
     policyAllowed?: boolean
     policyReason?: boolean
     policyEscalate?: boolean
+    action?: boolean
+    recovered?: boolean
+    amountRecovered?: boolean
+    interventionUsed?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -9979,6 +10015,10 @@ export namespace Prisma {
     policyAllowed?: boolean
     policyReason?: boolean
     policyEscalate?: boolean
+    action?: boolean
+    recovered?: boolean
+    amountRecovered?: boolean
+    interventionUsed?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -10017,6 +10057,10 @@ export namespace Prisma {
     policyAllowed?: boolean
     policyReason?: boolean
     policyEscalate?: boolean
+    action?: boolean
+    recovered?: boolean
+    amountRecovered?: boolean
+    interventionUsed?: boolean
     createdAt?: boolean
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -10055,10 +10099,14 @@ export namespace Prisma {
     policyAllowed?: boolean
     policyReason?: boolean
     policyEscalate?: boolean
+    action?: boolean
+    recovered?: boolean
+    amountRecovered?: boolean
+    interventionUsed?: boolean
     createdAt?: boolean
   }
 
-  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "selectionReason" | "policyAllowed" | "policyReason" | "policyEscalate" | "createdAt", ExtArgs["result"]["opportunity"]>
+  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "selectionReason" | "policyAllowed" | "policyReason" | "policyEscalate" | "action" | "recovered" | "amountRecovered" | "interventionUsed" | "createdAt", ExtArgs["result"]["opportunity"]>
   export type OpportunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -10111,6 +10159,10 @@ export namespace Prisma {
       policyAllowed: boolean | null
       policyReason: string | null
       policyEscalate: boolean
+      action: string | null
+      recovered: boolean | null
+      amountRecovered: number | null
+      interventionUsed: boolean
       createdAt: Date
     }, ExtArgs["result"]["opportunity"]>
     composites: {}
@@ -10569,6 +10621,10 @@ export namespace Prisma {
     readonly policyAllowed: FieldRef<"Opportunity", 'Boolean'>
     readonly policyReason: FieldRef<"Opportunity", 'String'>
     readonly policyEscalate: FieldRef<"Opportunity", 'Boolean'>
+    readonly action: FieldRef<"Opportunity", 'String'>
+    readonly recovered: FieldRef<"Opportunity", 'Boolean'>
+    readonly amountRecovered: FieldRef<"Opportunity", 'Float'>
+    readonly interventionUsed: FieldRef<"Opportunity", 'Boolean'>
     readonly createdAt: FieldRef<"Opportunity", 'DateTime'>
   }
     
@@ -11119,6 +11175,10 @@ export namespace Prisma {
     policyAllowed: 'policyAllowed',
     policyReason: 'policyReason',
     policyEscalate: 'policyEscalate',
+    action: 'action',
+    recovered: 'recovered',
+    amountRecovered: 'amountRecovered',
+    interventionUsed: 'interventionUsed',
     createdAt: 'createdAt'
   };
 
@@ -11801,6 +11861,10 @@ export namespace Prisma {
     policyAllowed?: BoolNullableFilter<"Opportunity"> | boolean | null
     policyReason?: StringNullableFilter<"Opportunity"> | string | null
     policyEscalate?: BoolFilter<"Opportunity"> | boolean
+    action?: StringNullableFilter<"Opportunity"> | string | null
+    recovered?: BoolNullableFilter<"Opportunity"> | boolean | null
+    amountRecovered?: FloatNullableFilter<"Opportunity"> | number | null
+    interventionUsed?: BoolFilter<"Opportunity"> | boolean
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11839,6 +11903,10 @@ export namespace Prisma {
     policyAllowed?: SortOrderInput | SortOrder
     policyReason?: SortOrderInput | SortOrder
     policyEscalate?: SortOrder
+    action?: SortOrderInput | SortOrder
+    recovered?: SortOrderInput | SortOrder
+    amountRecovered?: SortOrderInput | SortOrder
+    interventionUsed?: SortOrder
     createdAt?: SortOrder
     payment?: PaymentOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
@@ -11880,6 +11948,10 @@ export namespace Prisma {
     policyAllowed?: BoolNullableFilter<"Opportunity"> | boolean | null
     policyReason?: StringNullableFilter<"Opportunity"> | string | null
     policyEscalate?: BoolFilter<"Opportunity"> | boolean
+    action?: StringNullableFilter<"Opportunity"> | string | null
+    recovered?: BoolNullableFilter<"Opportunity"> | boolean | null
+    amountRecovered?: FloatNullableFilter<"Opportunity"> | number | null
+    interventionUsed?: BoolFilter<"Opportunity"> | boolean
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
     payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
@@ -11918,6 +11990,10 @@ export namespace Prisma {
     policyAllowed?: SortOrderInput | SortOrder
     policyReason?: SortOrderInput | SortOrder
     policyEscalate?: SortOrder
+    action?: SortOrderInput | SortOrder
+    recovered?: SortOrderInput | SortOrder
+    amountRecovered?: SortOrderInput | SortOrder
+    interventionUsed?: SortOrder
     createdAt?: SortOrder
     _count?: OpportunityCountOrderByAggregateInput
     _avg?: OpportunityAvgOrderByAggregateInput
@@ -11962,6 +12038,10 @@ export namespace Prisma {
     policyAllowed?: BoolNullableWithAggregatesFilter<"Opportunity"> | boolean | null
     policyReason?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
     policyEscalate?: BoolWithAggregatesFilter<"Opportunity"> | boolean
+    action?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
+    recovered?: BoolNullableWithAggregatesFilter<"Opportunity"> | boolean | null
+    amountRecovered?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
+    interventionUsed?: BoolWithAggregatesFilter<"Opportunity"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
   }
 
@@ -12491,6 +12571,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
@@ -12529,6 +12613,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
   }
 
@@ -12563,6 +12651,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
@@ -12601,6 +12693,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12637,6 +12733,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
   }
 
@@ -12671,6 +12771,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12707,6 +12811,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13412,6 +13520,10 @@ export namespace Prisma {
     policyAllowed?: SortOrder
     policyReason?: SortOrder
     policyEscalate?: SortOrder
+    action?: SortOrder
+    recovered?: SortOrder
+    amountRecovered?: SortOrder
+    interventionUsed?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13429,6 +13541,7 @@ export namespace Prisma {
     aiRecoveryWithInterventionProbability?: SortOrder
     incrementalLift?: SortOrder
     expectedIncrementalRevenue?: SortOrder
+    amountRecovered?: SortOrder
   }
 
   export type OpportunityMaxOrderByAggregateInput = {
@@ -13464,6 +13577,10 @@ export namespace Prisma {
     policyAllowed?: SortOrder
     policyReason?: SortOrder
     policyEscalate?: SortOrder
+    action?: SortOrder
+    recovered?: SortOrder
+    amountRecovered?: SortOrder
+    interventionUsed?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13500,6 +13617,10 @@ export namespace Prisma {
     policyAllowed?: SortOrder
     policyReason?: SortOrder
     policyEscalate?: SortOrder
+    action?: SortOrder
+    recovered?: SortOrder
+    amountRecovered?: SortOrder
+    interventionUsed?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13517,6 +13638,7 @@ export namespace Prisma {
     aiRecoveryWithInterventionProbability?: SortOrder
     incrementalLift?: SortOrder
     expectedIncrementalRevenue?: SortOrder
+    amountRecovered?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14547,6 +14669,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutOpportunityInput
   }
@@ -14583,6 +14709,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
   }
 
@@ -14711,6 +14841,10 @@ export namespace Prisma {
     policyAllowed?: BoolNullableFilter<"Opportunity"> | boolean | null
     policyReason?: StringNullableFilter<"Opportunity"> | string | null
     policyEscalate?: BoolFilter<"Opportunity"> | boolean
+    action?: StringNullableFilter<"Opportunity"> | string | null
+    recovered?: BoolNullableFilter<"Opportunity"> | boolean | null
+    amountRecovered?: FloatNullableFilter<"Opportunity"> | number | null
+    interventionUsed?: BoolFilter<"Opportunity"> | boolean
     createdAt?: DateTimeFilter<"Opportunity"> | Date | string
   }
 
@@ -14840,6 +14974,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
     customer: CustomerCreateNestedOneWithoutOpportunitiesInput
   }
@@ -14876,6 +15014,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
   }
 
@@ -15001,6 +15143,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
   }
@@ -15037,6 +15183,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15657,6 +15807,10 @@ export namespace Prisma {
     policyAllowed?: boolean | null
     policyReason?: string | null
     policyEscalate?: boolean
+    action?: string | null
+    recovered?: boolean | null
+    amountRecovered?: number | null
+    interventionUsed?: boolean
     createdAt?: Date | string
   }
 
@@ -15770,6 +15924,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutOpportunityNestedInput
   }
@@ -15806,6 +15964,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15841,6 +16003,10 @@ export namespace Prisma {
     policyAllowed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     policyReason?: NullableStringFieldUpdateOperationsInput | string | null
     policyEscalate?: BoolFieldUpdateOperationsInput | boolean
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    recovered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    amountRecovered?: NullableFloatFieldUpdateOperationsInput | number | null
+    interventionUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

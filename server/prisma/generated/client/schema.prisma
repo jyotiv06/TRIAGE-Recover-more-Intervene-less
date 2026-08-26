@@ -158,5 +158,10 @@ model Opportunity {
   policyReason   String?
   policyEscalate Boolean  @default(false)
 
+  action           String?
+  recovered        Boolean?
+  amountRecovered  Float?
+  interventionUsed Boolean  @default(false)
+
   createdAt DateTime @default(now())
 }
