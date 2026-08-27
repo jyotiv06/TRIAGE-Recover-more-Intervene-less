@@ -1,4 +1,5 @@
 const { PrismaClient } = require('../prisma/generated/client');
+const { runRecoveryPipeline } = require('./recoveryPipeline');
 const prisma = new PrismaClient();
 
 const SUPPORTED_EVENTS = ['payment.failed', 'payment.authorized', 'payment.captured'];
@@ -11,7 +12,6 @@ const EVENT_TO_PAYMENT_STATUS = {
 
 class ValidationError extends Error {}
 
-// ---- 1. validate ----
 function validateEvent(raw) {
   if (!raw || typeof raw !== 'object') {
     throw new ValidationError('Event body must be an object');
@@ -29,7 +29,6 @@ function validateEvent(raw) {
   return true;
 }
 
-// ---- 2. normalize ----
 function normalizeEvent(raw) {
   const entity = raw.payload.payment.entity;
   return {
@@ -52,27 +51,9 @@ async function getOrCreateDemoCustomer() {
   return created.id;
 }
 
-// ---- 3 & 4. deduplicate + store ----
 async function processPaymentEvent(rawEvent) {
   validateEvent(rawEvent);
   const normalized = normalizeEvent(rawEvent);
-
-  // Find or create the Payment this event refers to. In production this row would
-  // already exist (created at checkout, before any webhook fires); for the demo we
-  // create it on first sight so the pipeline is runnable standalone.
-  let payment = await prisma.payment.findFirst({ where: { id: normalized.razorpayPaymentId } });
-
-  if (!payment) {
-    payment = await prisma.payment.create({
-      data: {
-        id: normalized.razorpayPaymentId,
-        amount: normalized.amount,
-        currency: normalized.currency,
-        status: EVENT_TO_PAYMENT_STATUS[normalized.eventType],
-        customerId: await getOrCreateDemoCustomer(),
-      },
-    });
-  }
 
   try {
     const stored = await prisma.paymentEvent.create({
@@ -84,19 +65,66 @@ async function processPaymentEvent(rawEvent) {
       },
     });
 
-    // Only advance payment status if this event was actually new (we only reach here
-    // if the create above succeeded, i.e. it wasn't a duplicate).
     await prisma.payment.update({
       where: { id: payment.id },
-      data: { status: EVENT_TO_PAYMENT_STATUS[normalized.eventType] },
+      data: {
+        status: EVENT_TO_PAYMENT_STATUS[normalized.eventType],
+      },
     });
 
-    return { duplicate: false, event: stored };
+    const opportunity = await prisma.opportunity.upsert({
+      where: {
+        paymentId: payment.id,
+      },
+      create: {
+        paymentId: payment.id,
+        customerId: payment.customerId,
+
+        amount: payment.amount,
+        currency: payment.currency,
+
+        customerSegment: 'NEW',
+        previousSuccessCount: 0,
+        previousFailureCount: 0,
+        daysSinceLastSuccess: null,
+
+        attemptCount: 1,
+        failureReason: 'OTHER',
+        opportunityStatus: 'FAILED',
+
+        hoursSinceFailure: 0,
+        checkoutAbandoned: false,
+        lateAuthorization: false,
+        alreadyRecovered: false,
+
+        naturalRecoveryProbability: 0,
+        recoveredNaturally: false,
+      },
+
+      update: {
+        amount: payment.amount,
+        currency: payment.currency,
+        opportunityStatus: 'FAILED',
+        attemptCount: {
+          increment: 1,
+        },
+        hoursSinceFailure: 0,
+      },
+    });
+
+    await runRecoveryPipeline(opportunity.id);
+
+    return {
+      duplicate: false,
+      event: stored,
+    };
+
   } catch (err) {
     if (err.code === 'P2002') {
       console.log(`Duplicate event ignored: ${normalized.eventId}`);
       return { duplicate: true, event: null };
     }
+
     throw err;
   }
 }

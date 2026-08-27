@@ -7,7 +7,6 @@ async function request(path) {
 
   if (!response.ok) {
     const body = await response.text();
-
     throw new Error(
       body || `Request failed: ${response.status}`
     );
@@ -34,8 +33,8 @@ export function fetchCase(id) {
   );
 }
 
-export function fetchBaselineVsRevive() {
-  return request('/api/dashboard/baseline-vs-revive');
+export function fetchBaselineVsTriage() {
+  return request('/api/dashboard/baseline-vs-triage');
 }
 
 export function formatINR(value) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  fetchBaselineVsRevive,
+  fetchBaselineVsTriage,
   formatINR,
 } from '../api';
 
@@ -9,7 +9,7 @@ export default function BaselineVsTriage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchBaselineVsRevive()
+    fetchBaselineVsTriage()
       .then(setData)
       .catch((e) => setError(e.message));
   }, []);
@@ -34,8 +34,8 @@ export default function BaselineVsTriage() {
         </h3>
 
         <div className="triage-card-subtitle">
-          Both strategies evaluated under the same
-          intervention capacity of {data.capacity}.
+          Both strategies evaluated on the same {data.totalOpportunities} opportunities
+          with the same intervention capacity of {data.capacity}.
         </div>
       </div>
 
@@ -44,8 +44,14 @@ export default function BaselineVsTriage() {
           <thead>
             <tr>
               <th></th>
-              <th>Baseline — Biggest Payments</th>
-              <th>Triage</th>
+
+              <th>
+                Baseline — Biggest Payments
+              </th>
+
+              <th>
+                Triage — Highest Incremental Value
+              </th>
             </tr>
           </thead>
 
@@ -54,11 +60,11 @@ export default function BaselineVsTriage() {
               <td>Expected Recovery</td>
 
               <td>
-                {formatINR(data.baseline.recovered)}
+                {formatINR(data.baseline.expectedRecovery)}
               </td>
 
               <td className="triage-column">
-                {formatINR(data.triage.recovered)}
+                {formatINR(data.triage.expectedRecovery)}
               </td>
             </tr>
 
@@ -66,11 +72,11 @@ export default function BaselineVsTriage() {
               <td>Incremental Revenue</td>
 
               <td>
-                {formatINR(data.baseline.incremental)}
+                {formatINR(data.baseline.incrementalRevenue)}
               </td>
 
               <td className="triage-column">
-                {formatINR(data.triage.incremental)}
+                {formatINR(data.triage.incrementalRevenue)}
               </td>
             </tr>
 
@@ -83,6 +89,22 @@ export default function BaselineVsTriage() {
 
               <td className="triage-column">
                 {data.triage.interventions}
+              </td>
+            </tr>
+
+            <tr>
+              <td>Incremental / Intervention</td>
+
+              <td>
+                {formatINR(
+                  data.baseline.incrementalRevenuePerIntervention
+                )}
+              </td>
+
+              <td className="triage-column">
+                {formatINR(
+                  data.triage.incrementalRevenuePerIntervention
+                )}
               </td>
             </tr>
           </tbody>

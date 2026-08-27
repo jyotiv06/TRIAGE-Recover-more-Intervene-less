@@ -139,70 +139,140 @@ router.get('/cases', async (req, res) => {
   }
 });
 
-router.get('/baseline-vs-revive', async (req, res) => {
+router.get('/baseline-vs-triage', async (req, res) => {
   try {
     const raw = await prisma.opportunity.findMany();
-    const all = raw.map(toNumbers);
-    const CAPACITY = 50;
 
-    const baselineSelected = [...all]
-    .sort((a, b) => b.amount - a.amount)
-    .slice(0, CAPACITY);
+    const CAPACITY = 20;
 
-    const baselineIncremental = baselineSelected.reduce(
-      (sum, o) => sum + o.expectedIncrementalRevenue,
-      0
-    );
+    const opportunities = raw.map((o) => {
+      const amount = Number(o.amount) || 0;
 
-    const baselineNaturalRecovery = all.reduce(
-      (sum, o) =>
-        sum + o.amount * o.naturalRecoveryProbability,
-      0
-    );
+      const naturalProbability =
+        Number(
+          o.aiNaturalRecoveryProbability ??
+          o.naturalRecoveryProbability ??
+          0
+        );
 
-    const baselineRecovered =
-      baselineNaturalRecovery + baselineIncremental;
+      const interventionProbability =
+        Number(
+          o.aiRecoveryWithInterventionProbability ??
+          naturalProbability
+        );
 
-    const triageSelected = all.filter(
-      (o) => o.selectedForIntervention
-    );
+      const naturalRecovery =
+        amount * naturalProbability;
 
-    const triageActedOn = triageSelected.filter(
-      (o) => o.policyAllowed && o.interventionUsed
-    );
+      const incrementalLift = Math.max(
+        0,
+        interventionProbability - naturalProbability
+      );
 
-    const triageIncremental = triageActedOn.reduce(
-      (sum, o) => sum + o.expectedIncrementalRevenue,
-      0
-    );
+      const expectedIncrementalRevenue =
+        amount * incrementalLift;
 
-    const triageNaturalRecovery = all.reduce(
-      (sum, o) =>
-        sum + o.amount * o.naturalRecoveryProbability,
-      0
-    );
+      return {
+        id: o.id,
+        amount,
+        naturalRecovery,
+        incrementalLift,
+        expectedIncrementalRevenue,
+      };
+    });
 
-const triageRecovered =
-  triageNaturalRecovery + triageIncremental;
+    const baselineSelected = [...opportunities]
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, CAPACITY);
+
+    const triageSelected = [...opportunities]
+      .sort(
+        (a, b) =>
+          b.expectedIncrementalRevenue -
+          a.expectedIncrementalRevenue
+      )
+      .slice(0, CAPACITY);
+
+    const baselineNaturalRecovery =
+      baselineSelected.reduce(
+        (sum, o) => sum + o.naturalRecovery,
+        0
+      );
+
+    const baselineIncrementalRevenue =
+      baselineSelected.reduce(
+        (sum, o) => sum + o.expectedIncrementalRevenue,
+        0
+      );
+
+    const baselineExpectedRecovery =
+      baselineNaturalRecovery +
+      baselineIncrementalRevenue;
+
+    const triageNaturalRecovery =
+      triageSelected.reduce(
+        (sum, o) => sum + o.naturalRecovery,
+        0
+      );
+
+    const triageIncrementalRevenue =
+      triageSelected.reduce(
+        (sum, o) => sum + o.expectedIncrementalRevenue,
+        0
+      );
+
+    const triageExpectedRecovery =
+      triageNaturalRecovery +
+      triageIncrementalRevenue;
 
     res.json({
       capacity: CAPACITY,
+      totalOpportunities: opportunities.length,
 
       baseline: {
-        recovered: baselineRecovered,
-        incremental: baselineIncremental,
-        interventions: CAPACITY,
+        strategy: 'BIGGEST_PAYMENTS',
+        interventions: baselineSelected.length,
+        expectedRecovery: baselineExpectedRecovery,
+        incrementalRevenue: baselineIncrementalRevenue,
+        incrementalRevenuePerIntervention:
+          baselineSelected.length > 0
+            ? baselineIncrementalRevenue /
+              baselineSelected.length
+            : 0,
       },
 
       triage: {
-        recovered: triageRecovered,
-        incremental: triageIncremental,
-        interventions: triageActedOn.length,
+        strategy: 'HIGHEST_INCREMENTAL_VALUE',
+        interventions: triageSelected.length,
+        expectedRecovery: triageExpectedRecovery,
+        incrementalRevenue: triageIncrementalRevenue,
+        incrementalRevenuePerIntervention:
+          triageSelected.length > 0
+            ? triageIncrementalRevenue /
+              triageSelected.length
+            : 0,
+      },
+
+      comparison: {
+        incrementalRevenueLift:
+          triageIncrementalRevenue -
+          baselineIncrementalRevenue,
+
+        recoveryLift:
+          triageExpectedRecovery -
+          baselineExpectedRecovery,
+
+        interventionReduction:
+          baselineSelected.length -
+          triageSelected.length,
       },
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to compute comparison' });
+    console.error('Baseline vs Triage error:', err);
+
+    res.status(500).json({
+      error: 'Failed to calculate baseline vs triage',
+    });
   }
 });
 
