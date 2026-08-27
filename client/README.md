@@ -1,16 +1,84 @@
-# React + Vite
+# Triage: Recover More, Intervene Less
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Triage is an AI-assisted revenue recovery engine for payment failures and other
+at-risk payment opportunities.
 
-Currently, two official plugins are available:
+The basic idea is simple:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> Not every failed payment needs an intervention.
 
-## React Compiler
+Some payments are likely to recover on their own. Some need a retry, payment
+link, or reminder. Some are too risky or too valuable to handle automatically.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Instead of treating every failed payment the same, Triage estimates the value
+of intervening and uses a limited intervention budget to decide where an action
+is actually worth taking.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## What problem does this solve?
+
+Payment failures don't all have the same reason or the same chance of recovery.
+
+For example:
+
+- An insufficient-funds failure may recover naturally after some time.
+- An expired card may need the customer to use another payment method.
+- A temporary network error may be worth retrying.
+- A high-value payment may need human escalation instead of an automatic action.
+- Some opportunities have very little additional value from intervention.
+
+A simple recovery system might retry everything or simply target the biggest
+payments.
+
+That can lead to:
+
+- unnecessary customer contact
+- wasted intervention capacity
+- repeated retries
+- poor prioritization
+- lack of visibility into why a decision was made
+
+Triage tries to answer a more useful question:
+
+> "If I only have a limited number of interventions, where will each
+> intervention create the most additional recovery?"
+
+---
+
+# How Triage works
+
+The system processes a payment opportunity through several stages:
+
+```text
+Razorpay Webhook
+       |
+       v
+Event Validation
+       |
+       v
+Normalization + Deduplication
+       |
+       v
+Opportunity Creation
+       |
+       v
+AI Diagnosis (Gemini)
+       |
+       v
+Recovery Economics
+       |
+       v
+Portfolio Optimization
+       |
+       v
+Policy / Safety Checks
+       |
+       v
+Action Selection
+       |
+       v
+Outcome Simulation / Recovery
+       |
+       v
+Audit Trail + Dashboard
