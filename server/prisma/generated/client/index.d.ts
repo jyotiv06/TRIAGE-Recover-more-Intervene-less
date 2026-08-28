@@ -9541,6 +9541,7 @@ export namespace Prisma {
     aiRecommendedAction: string | null
     selectedForIntervention: boolean | null
     diagnosis: string | null
+    diagnosisReasoning: string | null
     diagnosisConfidence: number | null
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
@@ -9581,6 +9582,7 @@ export namespace Prisma {
     aiRecommendedAction: string | null
     selectedForIntervention: boolean | null
     diagnosis: string | null
+    diagnosisReasoning: string | null
     diagnosisConfidence: number | null
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
@@ -9621,6 +9623,7 @@ export namespace Prisma {
     aiRecommendedAction: number
     selectedForIntervention: number
     diagnosis: number
+    diagnosisReasoning: number
     diagnosisConfidence: number
     aiNaturalRecoveryProbability: number
     aiRecoveryWithInterventionProbability: number
@@ -9697,6 +9700,7 @@ export namespace Prisma {
     aiRecommendedAction?: true
     selectedForIntervention?: true
     diagnosis?: true
+    diagnosisReasoning?: true
     diagnosisConfidence?: true
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
@@ -9737,6 +9741,7 @@ export namespace Prisma {
     aiRecommendedAction?: true
     selectedForIntervention?: true
     diagnosis?: true
+    diagnosisReasoning?: true
     diagnosisConfidence?: true
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
@@ -9777,6 +9782,7 @@ export namespace Prisma {
     aiRecommendedAction?: true
     selectedForIntervention?: true
     diagnosis?: true
+    diagnosisReasoning?: true
     diagnosisConfidence?: true
     aiNaturalRecoveryProbability?: true
     aiRecoveryWithInterventionProbability?: true
@@ -9904,6 +9910,7 @@ export namespace Prisma {
     aiRecommendedAction: string | null
     selectedForIntervention: boolean
     diagnosis: string | null
+    diagnosisReasoning: string | null
     diagnosisConfidence: number | null
     aiNaturalRecoveryProbability: number | null
     aiRecoveryWithInterventionProbability: number | null
@@ -9963,6 +9970,7 @@ export namespace Prisma {
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
     diagnosis?: boolean
+    diagnosisReasoning?: boolean
     diagnosisConfidence?: boolean
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
@@ -10005,6 +10013,7 @@ export namespace Prisma {
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
     diagnosis?: boolean
+    diagnosisReasoning?: boolean
     diagnosisConfidence?: boolean
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
@@ -10047,6 +10056,7 @@ export namespace Prisma {
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
     diagnosis?: boolean
+    diagnosisReasoning?: boolean
     diagnosisConfidence?: boolean
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
@@ -10089,6 +10099,7 @@ export namespace Prisma {
     aiRecommendedAction?: boolean
     selectedForIntervention?: boolean
     diagnosis?: boolean
+    diagnosisReasoning?: boolean
     diagnosisConfidence?: boolean
     aiNaturalRecoveryProbability?: boolean
     aiRecoveryWithInterventionProbability?: boolean
@@ -10106,7 +10117,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "selectionReason" | "policyAllowed" | "policyReason" | "policyEscalate" | "action" | "recovered" | "amountRecovered" | "interventionUsed" | "createdAt", ExtArgs["result"]["opportunity"]>
+  export type OpportunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "customerId" | "amount" | "currency" | "customerSegment" | "previousSuccessCount" | "previousFailureCount" | "daysSinceLastSuccess" | "attemptCount" | "failureReason" | "opportunityStatus" | "hoursSinceFailure" | "checkoutAbandoned" | "lateAuthorization" | "alreadyRecovered" | "naturalRecoveryProbability" | "recoveredNaturally" | "aiEstimatedLift" | "aiRecommendedAction" | "selectedForIntervention" | "diagnosis" | "diagnosisReasoning" | "diagnosisConfidence" | "aiNaturalRecoveryProbability" | "aiRecoveryWithInterventionProbability" | "diagnosedAt" | "incrementalLift" | "expectedIncrementalRevenue" | "selectionReason" | "policyAllowed" | "policyReason" | "policyEscalate" | "action" | "recovered" | "amountRecovered" | "interventionUsed" | "createdAt", ExtArgs["result"]["opportunity"]>
   export type OpportunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -10149,6 +10160,7 @@ export namespace Prisma {
       aiRecommendedAction: string | null
       selectedForIntervention: boolean
       diagnosis: string | null
+      diagnosisReasoning: string | null
       diagnosisConfidence: number | null
       aiNaturalRecoveryProbability: number | null
       aiRecoveryWithInterventionProbability: number | null
@@ -10611,6 +10623,7 @@ export namespace Prisma {
     readonly aiRecommendedAction: FieldRef<"Opportunity", 'String'>
     readonly selectedForIntervention: FieldRef<"Opportunity", 'Boolean'>
     readonly diagnosis: FieldRef<"Opportunity", 'String'>
+    readonly diagnosisReasoning: FieldRef<"Opportunity", 'String'>
     readonly diagnosisConfidence: FieldRef<"Opportunity", 'Float'>
     readonly aiNaturalRecoveryProbability: FieldRef<"Opportunity", 'Float'>
     readonly aiRecoveryWithInterventionProbability: FieldRef<"Opportunity", 'Float'>
@@ -11165,6 +11178,7 @@ export namespace Prisma {
     aiRecommendedAction: 'aiRecommendedAction',
     selectedForIntervention: 'selectedForIntervention',
     diagnosis: 'diagnosis',
+    diagnosisReasoning: 'diagnosisReasoning',
     diagnosisConfidence: 'diagnosisConfidence',
     aiNaturalRecoveryProbability: 'aiNaturalRecoveryProbability',
     aiRecoveryWithInterventionProbability: 'aiRecoveryWithInterventionProbability',
@@ -11851,6 +11865,7 @@ export namespace Prisma {
     aiRecommendedAction?: StringNullableFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolFilter<"Opportunity"> | boolean
     diagnosis?: StringNullableFilter<"Opportunity"> | string | null
+    diagnosisReasoning?: StringNullableFilter<"Opportunity"> | string | null
     diagnosisConfidence?: FloatNullableFilter<"Opportunity"> | number | null
     aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
@@ -11893,6 +11908,7 @@ export namespace Prisma {
     aiRecommendedAction?: SortOrderInput | SortOrder
     selectedForIntervention?: SortOrder
     diagnosis?: SortOrderInput | SortOrder
+    diagnosisReasoning?: SortOrderInput | SortOrder
     diagnosisConfidence?: SortOrderInput | SortOrder
     aiNaturalRecoveryProbability?: SortOrderInput | SortOrder
     aiRecoveryWithInterventionProbability?: SortOrderInput | SortOrder
@@ -11938,6 +11954,7 @@ export namespace Prisma {
     aiRecommendedAction?: StringNullableFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolFilter<"Opportunity"> | boolean
     diagnosis?: StringNullableFilter<"Opportunity"> | string | null
+    diagnosisReasoning?: StringNullableFilter<"Opportunity"> | string | null
     diagnosisConfidence?: FloatNullableFilter<"Opportunity"> | number | null
     aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
@@ -11980,6 +11997,7 @@ export namespace Prisma {
     aiRecommendedAction?: SortOrderInput | SortOrder
     selectedForIntervention?: SortOrder
     diagnosis?: SortOrderInput | SortOrder
+    diagnosisReasoning?: SortOrderInput | SortOrder
     diagnosisConfidence?: SortOrderInput | SortOrder
     aiNaturalRecoveryProbability?: SortOrderInput | SortOrder
     aiRecoveryWithInterventionProbability?: SortOrderInput | SortOrder
@@ -12028,6 +12046,7 @@ export namespace Prisma {
     aiRecommendedAction?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolWithAggregatesFilter<"Opportunity"> | boolean
     diagnosis?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
+    diagnosisReasoning?: StringNullableWithAggregatesFilter<"Opportunity"> | string | null
     diagnosisConfidence?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
     aiNaturalRecoveryProbability?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableWithAggregatesFilter<"Opportunity"> | number | null
@@ -12561,6 +12580,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -12603,6 +12623,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -12641,6 +12662,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -12683,6 +12705,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -12723,6 +12746,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -12761,6 +12785,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -12801,6 +12826,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -13510,6 +13536,7 @@ export namespace Prisma {
     aiRecommendedAction?: SortOrder
     selectedForIntervention?: SortOrder
     diagnosis?: SortOrder
+    diagnosisReasoning?: SortOrder
     diagnosisConfidence?: SortOrder
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
@@ -13567,6 +13594,7 @@ export namespace Prisma {
     aiRecommendedAction?: SortOrder
     selectedForIntervention?: SortOrder
     diagnosis?: SortOrder
+    diagnosisReasoning?: SortOrder
     diagnosisConfidence?: SortOrder
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
@@ -13607,6 +13635,7 @@ export namespace Prisma {
     aiRecommendedAction?: SortOrder
     selectedForIntervention?: SortOrder
     diagnosis?: SortOrder
+    diagnosisReasoning?: SortOrder
     diagnosisConfidence?: SortOrder
     aiNaturalRecoveryProbability?: SortOrder
     aiRecoveryWithInterventionProbability?: SortOrder
@@ -14659,6 +14688,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -14699,6 +14729,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -14831,6 +14862,7 @@ export namespace Prisma {
     aiRecommendedAction?: StringNullableFilter<"Opportunity"> | string | null
     selectedForIntervention?: BoolFilter<"Opportunity"> | boolean
     diagnosis?: StringNullableFilter<"Opportunity"> | string | null
+    diagnosisReasoning?: StringNullableFilter<"Opportunity"> | string | null
     diagnosisConfidence?: FloatNullableFilter<"Opportunity"> | number | null
     aiNaturalRecoveryProbability?: FloatNullableFilter<"Opportunity"> | number | null
     aiRecoveryWithInterventionProbability?: FloatNullableFilter<"Opportunity"> | number | null
@@ -14964,6 +14996,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -15004,6 +15037,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -15133,6 +15167,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -15173,6 +15208,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -15797,6 +15833,7 @@ export namespace Prisma {
     aiRecommendedAction?: string | null
     selectedForIntervention?: boolean
     diagnosis?: string | null
+    diagnosisReasoning?: string | null
     diagnosisConfidence?: number | null
     aiNaturalRecoveryProbability?: number | null
     aiRecoveryWithInterventionProbability?: number | null
@@ -15914,6 +15951,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -15954,6 +15992,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -15993,6 +16032,7 @@ export namespace Prisma {
     aiRecommendedAction?: NullableStringFieldUpdateOperationsInput | string | null
     selectedForIntervention?: BoolFieldUpdateOperationsInput | boolean
     diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosisReasoning?: NullableStringFieldUpdateOperationsInput | string | null
     diagnosisConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     aiNaturalRecoveryProbability?: NullableFloatFieldUpdateOperationsInput | number | null
     aiRecoveryWithInterventionProbability?: NullableFloatFieldUpdateOperationsInput | number | null

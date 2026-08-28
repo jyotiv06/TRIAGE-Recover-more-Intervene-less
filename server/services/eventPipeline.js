@@ -34,8 +34,8 @@ function normalizeEvent(raw) {
   return {
     eventId: raw.id,
     eventType: raw.event,
-    razorpayPaymentId: entity.id,
-    amount: entity.amount / 100, // Razorpay sends amount in paise
+    razorpayPaymentId: entity.id, 
+    amount: entity.amount / 100, 
     currency: entity.currency || 'INR',
     occurredAt: raw.created_at ? new Date(raw.created_at * 1000) : new Date(),
     raw,
@@ -54,6 +54,24 @@ async function getOrCreateDemoCustomer() {
 async function processPaymentEvent(rawEvent) {
   validateEvent(rawEvent);
   const normalized = normalizeEvent(rawEvent);
+
+  const customerId = await getOrCreateDemoCustomer();
+
+  const payment = await prisma.payment.upsert({
+    where: { id: normalized.razorpayPaymentId },
+    create: {
+      id: normalized.razorpayPaymentId,
+      customerId,
+      amount: normalized.amount,
+      currency: normalized.currency,
+      status: EVENT_TO_PAYMENT_STATUS[normalized.eventType],
+    },
+    update: {
+      amount: normalized.amount,
+      currency: normalized.currency,
+      status: EVENT_TO_PAYMENT_STATUS[normalized.eventType],
+    },
+  });
 
   try {
     const stored = await prisma.paymentEvent.create({

@@ -211,6 +211,7 @@ exports.Prisma.OpportunityScalarFieldEnum = {
   aiRecommendedAction: 'aiRecommendedAction',
   selectedForIntervention: 'selectedForIntervention',
   diagnosis: 'diagnosis',
+  diagnosisReasoning: 'diagnosisReasoning',
   diagnosisConfidence: 'diagnosisConfidence',
   aiNaturalRecoveryProbability: 'aiNaturalRecoveryProbability',
   aiRecoveryWithInterventionProbability: 'aiRecoveryWithInterventionProbability',
